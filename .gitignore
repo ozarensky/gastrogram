@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.env.local
+
+# local Claude Code settings
+.claude/settings.local.json
+
+# wrangler
+.wrangler
+.dev.vars*

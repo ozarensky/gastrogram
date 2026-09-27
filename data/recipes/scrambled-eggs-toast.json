@@ -1,0 +1,18 @@
+{
+  "id": "scrambled-eggs-toast",
+  "title": "Scrambled eggs on toast",
+  "cuisine": "european-comfort",
+  "activeMinutes": 8,
+  "totalMinutes": 10,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Cut their toast into fingers, not squares, and salt only the adult eggs.",
+  "tags": ["breakfast", "staples-only"],
+  "ingredients": [],
+  "steps": [
+    "Beat the eggs with a splash of milk and a knob of butter.",
+    "Low heat, stir constantly, pull off while still slightly wet — they keep cooking.",
+    "Toast, butter, serve. Salt and pepper the adult plates only."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

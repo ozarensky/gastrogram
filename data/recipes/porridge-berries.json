@@ -1,0 +1,18 @@
+{
+  "id": "porridge-berries",
+  "title": "Porridge with berries",
+  "cuisine": "european-comfort",
+  "activeMinutes": 5,
+  "totalMinutes": 8,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Make theirs looser and let it stand — porridge holds heat and burns small mouths. Honey only for the 3-year-old.",
+  "tags": ["breakfast", "staples-only"],
+  "ingredients": [],
+  "steps": [
+    "Oats and milk in the pan, 1 part oats to 3 parts milk. Simmer 5 minutes, stirring.",
+    "Toddlers' bowls first, loosened with a splash of cold milk so they can eat straight away.",
+    "Berries and honey on top."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

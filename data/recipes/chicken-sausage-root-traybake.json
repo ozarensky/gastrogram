@@ -1,0 +1,26 @@
+{
+  "id": "chicken-sausage-root-traybake",
+  "title": "Chicken sausage and root vegetable traybake",
+  "cuisine": "european-comfort",
+  "activeMinutes": 10,
+  "totalMinutes": 45,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Cut the toddlers' sausages lengthways into strips — never into coins, which are a choking risk at this age. Skip the mustard glaze on their half.",
+  "tags": ["one-tray", "low-active", "weekend", "freezer-ok"],
+  "ingredients": [
+    { "item": "chicken sausages", "qty": 8, "unit": "unit", "category": "meat-fish", "keepsDays": 5 },
+    { "item": "new potatoes", "qty": 1, "unit": "kg", "category": "produce", "keepsDays": 10 },
+    { "item": "parsnips", "qty": 500, "unit": "g", "category": "produce", "keepsDays": 10 },
+    { "item": "red onion", "qty": 2, "unit": "unit", "category": "produce", "keepsDays": 21 },
+    { "item": "fresh rosemary", "qty": 1, "unit": "bunch", "category": "produce", "keepsDays": 7 }
+  ],
+  "steps": [
+    "Oven to 200C. Halve the potatoes, cut parsnips into batons, quarter the onions.",
+    "Toss everything except the sausages with oil, rosemary and salt. Roast 20 minutes.",
+    "Add the sausages, roast a further 20 minutes, turning once.",
+    "Set aside the toddlers' share and slice their sausages lengthways.",
+    "Whisk mustard with a splash of the pan juices, drizzle over the adult half."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

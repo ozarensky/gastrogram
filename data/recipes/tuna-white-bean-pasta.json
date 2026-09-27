@@ -1,0 +1,27 @@
+{
+  "id": "tuna-white-bean-pasta",
+  "title": "Tuna and white bean pasta",
+  "cuisine": "mediterranean",
+  "activeMinutes": 12,
+  "totalMinutes": 15,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Dress the toddlers' portion with a little oil and no rocket or red onion — peppery leaves put them off the whole bowl. Mash a few beans so they are not slippery.",
+  "tags": ["store-cupboard", "fastest", "no-cook-sauce"],
+  "ingredients": [
+    { "item": "tinned tuna", "qty": 3, "unit": "unit", "category": "tins-jars" },
+    { "item": "cannellini beans", "qty": 2, "unit": "unit", "category": "tins-jars" },
+    { "item": "fusilli", "qty": 400, "unit": "g", "category": "dry-goods" },
+    { "item": "rocket", "qty": 1, "unit": "pack", "category": "produce", "keepsDays": 4 },
+    { "item": "lemons", "qty": 1, "unit": "unit", "category": "produce", "keepsDays": 14 },
+    { "item": "red onion", "qty": 1, "unit": "unit", "category": "produce", "keepsDays": 21 }
+  ],
+  "steps": [
+    "Boil the fusilli. That is the only cooking.",
+    "Meanwhile drain the tuna and beans, finely slice the red onion, mix with lemon juice and plenty of olive oil.",
+    "Drain the pasta, keeping a mug of the water. Toss everything together, loosening with the water.",
+    "Take out the toddlers' bowls.",
+    "Fold rocket and black pepper through the rest and serve warm."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

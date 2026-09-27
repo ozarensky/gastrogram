@@ -1,0 +1,352 @@
+<title>The Weekly Shop</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+  /* Direction: a slate list on the trolley handle, chalk-white ink, marked off with a yellow highlighter.
+     Inverted on request: the dark palette is the default and the viewer's dark theme flips it to paper. */
+  :root {
+    color-scheme: dark;
+    --paper: #161917;
+    --paper-2: #1F2320;
+    --ink: #ECEEE8;
+    --ink-2: #9BA39C;
+    --rule: #2D322E;
+    --mark: #E6B92B;
+    --done: #6F776F;
+    --focus: #7FB0FF;
+    --display: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+    --body: 'Atkinson Hyperlegible', 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: light;
+      --paper: #F5F6F3; --paper-2: #E9ECE6; --ink: #171B18; --ink-2: #5B625D;
+      --rule: #D3D8D1; --mark: #F7C948; --done: #8E958F; --focus: #1D5FBF;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: light;
+    --paper: #F5F6F3; --paper-2: #E9ECE6; --ink: #171B18; --ink-2: #5B625D;
+    --rule: #D3D8D1; --mark: #F7C948; --done: #8E958F; --focus: #1D5FBF;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.35;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 560px; margin-inline: auto; padding-inline: 16px; padding-block: 0 40px; }
+
+  /* Sticky progress header */
+  .top {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 5;
+    background: var(--paper);
+    padding-block: 14px 10px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .top-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
+  .eyebrow {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .count {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 46px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .count .of { font-size: 22px; font-weight: 700; color: var(--ink-2); }
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .chip {
+    font: 700 13px/1 var(--body);
+    padding: 10px 12px;
+    min-height: 36px;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .chip:focus-visible, .reset:focus-visible, .plan summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .bar { height: 6px; background: var(--rule); margin-top: 12px; border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; width: 0; background: var(--mark); transition: width .25s ease; }
+  .sync { font-size: 12px; color: var(--ink-2); margin-top: 6px; min-height: 16px; }
+  .sync[data-mode="synced"]::before {
+    content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--mark); margin-right: 6px; vertical-align: 1px;
+  }
+
+  /* The week's dinners, folded away so the list comes first */
+  .plan { margin-block: 14px 4px; border: 1px solid var(--rule); border-radius: 8px; padding: 10px 14px; }
+  .plan summary {
+    font-family: var(--display); font-weight: 700; font-size: 16px;
+    text-transform: uppercase; letter-spacing: .06em; cursor: pointer;
+  }
+  .plan ol { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; }
+  .plan li { display: grid; grid-template-columns: 44px 1fr; gap: 8px; font-size: 15px; align-items: baseline; }
+  .plan .day { font-family: var(--display); font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: .04em; }
+  .plan .pnote, .plan .also { display: block; font-size: 13px; color: var(--ink-2); }
+  .plan .also { margin: 12px 0 2px; }
+
+  /* Aisles */
+  .aisle { margin-top: 24px; }
+  .aisle h2 {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 0; padding: 6px 0;
+    font-family: var(--display); font-weight: 800; font-size: 24px;
+    text-transform: uppercase; letter-spacing: .05em;
+    border-bottom: 2px solid var(--ink);
+  }
+  .aisle h2 .left { font-weight: 700; font-size: 14px; letter-spacing: .06em; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .aisle.all-done h2 .left { color: var(--ink); background: var(--mark); padding: 2px 8px; border-radius: 4px; }
+  .items { list-style: none; margin: 0; padding: 0; }
+  .item + .item { border-top: 1px solid var(--rule); }
+  .item label {
+    position: relative;
+    display: grid; grid-template-columns: 30px 1fr auto; gap: 12px; align-items: center;
+    min-height: 56px; padding: 10px 0;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .tick { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+  .box {
+    width: 28px; height: 28px; border: 2px solid var(--ink); border-radius: 6px;
+    display: grid; place-items: center; background: var(--paper);
+    transition: background .15s ease;
+  }
+  .box::after {
+    content: ""; width: 8px; height: 14px;
+    border: solid var(--ink); border-width: 0 3px 3px 0;
+    transform: rotate(45deg) translate(-1px, -2px); opacity: 0;
+  }
+  .tick:focus-visible + .box { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .name { font-weight: 700; font-size: 17px; overflow-wrap: anywhere; }
+  .src { font-size: 13px; color: var(--ink-2); }
+  .note { font-size: 13px; color: var(--ink); background: var(--paper-2); padding: 2px 6px; border-radius: 4px; align-self: flex-start; margin-top: 2px; }
+  .qty { font-variant-numeric: tabular-nums; font-size: 16px; white-space: nowrap; text-align: right; }
+
+  .item.done .box { background: var(--mark); animation: pop .18s ease; }
+  .item.done .box::after { opacity: 1; }
+  .item.done .name { color: var(--done); text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--ink-2); }
+  .item.done .src, .item.done .qty { color: var(--done); }
+  .item.done .note { opacity: .55; }
+  @keyframes pop { 50% { transform: scale(1.12); } }
+  .hide-done .item.done { display: none; }
+  .hide-done .aisle.all-done { display: none; }
+
+  footer { margin-top: 36px; border-top: 2px solid var(--ink); padding-top: 16px; display: grid; gap: 14px; font-size: 14px; color: var(--ink-2); }
+  footer p { margin: 0; }
+  .reset {
+    font: 700 15px/1 var(--body); padding: 14px; min-height: 48px;
+    border: 2px solid var(--ink); border-radius: 8px; background: transparent; color: var(--ink); cursor: pointer;
+  }
+  .reset.armed { background: var(--mark); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="top-row">
+      <div>
+        <div class="eyebrow">The Weekly Shop · week of {{WEEK_LABEL}}</div>
+        <h1 class="count"><span id="doneCount">0</span><span class="of"> of {{TOTAL}}</span></h1>
+      </div>
+      <div class="controls">
+        <button type="button" class="chip" id="hideDone" aria-pressed="false">Hide ticked</button>
+        <button type="button" class="chip" id="wake" aria-pressed="false" hidden>Keep screen on</button>
+      </div>
+    </div>
+    <div class="bar" role="progressbar" aria-label="Items ticked" aria-valuemin="0" aria-valuemax="{{TOTAL}}" aria-valuenow="0"><div class="bar-fill" id="barFill"></div></div>
+    <div class="sync" id="sync" data-mode="local">Saved on this phone</div>
+  </header>
+
+  <details class="plan" id="plan">
+    <summary>This week's dinners</summary>
+    <ol>
+{{DINNERS}}
+    </ol>
+    <span class="also">Breakfasts: {{BREAKFASTS}}. Lunches: {{LUNCHES}}.</span>
+  </details>
+
+{{SECTIONS}}
+
+  <footer>
+    <button type="button" class="reset" id="reset">Clear all ticks</button>
+    <p>{{SUMMARY}}</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var WEEK = '{{WEEK}}';
+  var KEY = 'ticks:' + WEEK;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  var rows = $$('.item');
+  var total = rows.length;
+  var checked = {};
+  var hideDone = false;
+  var db = null;
+  var queues = {};
+  var reconciled = false;
+
+  try { Object.assign(checked, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
+  try { hideDone = localStorage.getItem('hideDone:' + WEEK) === '1'; } catch (e) {}
+
+  function saveLocal() { try { localStorage.setItem(KEY, JSON.stringify(checked)); } catch (e) {} }
+
+  function render() {
+    var done = 0;
+    rows.forEach(function (row) {
+      var on = !!checked[row.getAttribute('data-slug')];
+      row.classList.toggle('done', on);
+      var input = $('input', row);
+      if (input.checked !== on) input.checked = on;
+      if (on) done++;
+    });
+    $('#doneCount').textContent = done;
+    $('#barFill').style.width = (total ? (done / total) * 100 : 0) + '%';
+    $('.bar').setAttribute('aria-valuenow', done);
+    $$('.aisle').forEach(function (sec) {
+      var left = $$('.item', sec).filter(function (r) { return !r.classList.contains('done'); }).length;
+      $('[data-left]', sec).textContent = left === 0 ? 'done' : left + ' left';
+      sec.classList.toggle('all-done', left === 0);
+    });
+    $('#hideDone').setAttribute('aria-pressed', String(hideDone));
+    document.documentElement.classList.toggle('hide-done', hideDone);
+  }
+
+  function setSync(mode) {
+    var el = $('#sync');
+    el.setAttribute('data-mode', mode);
+    el.textContent = mode === 'synced' ? 'Synced across your devices'
+      : mode === 'syncing' ? 'Syncing'
+      : 'Saved on this phone';
+  }
+
+  function writeRemote(slug, value) {
+    if (!db) return;
+    var ref = db.doc('weeks/' + WEEK + '/ticks/' + slug);
+    queues[slug] = (queues[slug] || Promise.resolve())
+      .then(function () { return ref.set({ checked: value, at: new Date().toISOString() }); })
+      .then(function () {}, function () { setSync('local'); });
+  }
+
+  function setTick(slug, value) {
+    checked[slug] = value;
+    saveLocal();
+    render();
+    writeRemote(slug, value);
+  }
+
+  rows.forEach(function (row) {
+    var slug = row.getAttribute('data-slug');
+    $('input', row).addEventListener('change', function (e) { setTick(slug, e.target.checked); });
+  });
+
+  $('#hideDone').addEventListener('click', function () {
+    hideDone = !hideDone;
+    try { localStorage.setItem('hideDone:' + WEEK, hideDone ? '1' : '0'); } catch (e) {}
+    render();
+  });
+
+  var armed = null;
+  var resetBtn = $('#reset');
+  function disarm() {
+    if (armed) clearTimeout(armed);
+    armed = null;
+    resetBtn.textContent = 'Clear all ticks';
+    resetBtn.classList.remove('armed');
+  }
+  resetBtn.addEventListener('click', function () {
+    if (!armed) {
+      resetBtn.textContent = 'Tap again to clear every tick';
+      resetBtn.classList.add('armed');
+      armed = setTimeout(disarm, 3500);
+      return;
+    }
+    disarm();
+    rows.forEach(function (row) {
+      var slug = row.getAttribute('data-slug');
+      if (checked[slug]) { checked[slug] = false; writeRemote(slug, false); }
+    });
+    saveLocal();
+    render();
+  });
+
+  // Keep the screen on while walking the shop. Optional: hidden where the browser refuses it.
+  var wakeBtn = $('#wake');
+  var lock = null;
+  var wantWake = false;
+  function requestWake() {
+    return navigator.wakeLock.request('screen').then(function (l) {
+      lock = l;
+      l.addEventListener('release', function () { lock = null; });
+    });
+  }
+  if (navigator.wakeLock && navigator.wakeLock.request) {
+    wakeBtn.hidden = false;
+    wakeBtn.addEventListener('click', function () {
+      if (wantWake) {
+        wantWake = false;
+        wakeBtn.setAttribute('aria-pressed', 'false');
+        if (lock) { lock.release().catch(function () {}); }
+        return;
+      }
+      requestWake().then(function () {
+        wantWake = true;
+        wakeBtn.setAttribute('aria-pressed', 'true');
+      }, function () { wakeBtn.hidden = true; });
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible' && wantWake && !lock) requestWake().catch(function () {});
+    });
+  }
+
+  render();
+
+  // Shared ticks: whoever has this page open sees the same list. Absent, the phone keeps its own copy.
+  function connect() {
+    if (!(window.claude && window.claude.use)) { setSync('local'); return; }
+    window.claude.use('db').then(function (ns) {
+      db = ns;
+      if (!db) { setSync('local'); return; }
+      setSync('syncing');
+      db.collection('weeks/' + WEEK + '/ticks').onSnapshot(function (snap) {
+        var seen = {};
+        snap.docs.forEach(function (d) {
+          seen[d.id] = true;
+          var body = d.data() || {};
+          checked[d.id] = !!body.checked;
+        });
+        if (!reconciled) {
+          reconciled = true;
+          Object.keys(checked).forEach(function (slug) {
+            if (checked[slug] && !seen[slug]) writeRemote(slug, true);
+          });
+        }
+        saveLocal();
+        render();
+        setSync(snap.metadata && snap.metadata.fromCache ? 'syncing' : 'synced');
+      }, function () { setSync('local'); });
+    }, function () { setSync('local'); });
+  }
+  connect();
+})();
+</script>

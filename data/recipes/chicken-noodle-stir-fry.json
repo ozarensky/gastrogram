@@ -1,0 +1,28 @@
+{
+  "id": "chicken-noodle-stir-fry",
+  "title": "Chicken and vegetable noodle stir-fry",
+  "cuisine": "asian",
+  "activeMinutes": 15,
+  "totalMinutes": 20,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Take the toddlers' noodles and chicken out before the soy sauce reduces — theirs get a spoon of the cooking water and a drop of sesame oil. Snip their noodles short.",
+  "tags": ["one-wok", "fastest", "uses-up-veg"],
+  "ingredients": [
+    { "item": "chicken breast", "qty": 500, "unit": "g", "category": "meat-fish", "keepsDays": 3 },
+    { "item": "egg noodles", "qty": 300, "unit": "g", "category": "dry-goods" },
+    { "item": "red peppers", "qty": 2, "unit": "unit", "category": "produce", "keepsDays": 7 },
+    { "item": "tenderstem broccoli", "qty": 200, "unit": "g", "category": "produce", "keepsDays": 4 },
+    { "item": "spring onions", "qty": 1, "unit": "bunch", "category": "produce", "keepsDays": 5 },
+    { "item": "fresh ginger", "qty": 20, "unit": "g", "category": "produce", "keepsDays": 14 },
+    { "item": "sesame oil", "qty": 1, "unit": "tbsp", "category": "dry-goods" }
+  ],
+  "steps": [
+    "Boil the noodles, drain, toss in a drop of oil so they do not weld together.",
+    "Very hot wok. Sliced chicken, 4 minutes, until coloured on all sides.",
+    "Add sliced pepper, broccoli and grated ginger, 3 minutes — keep it moving.",
+    "Add the noodles, toss to combine, then lift out the toddlers' portions.",
+    "Splash soy and honey into the wok, toss 1 minute until glossy, top with spring onions."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

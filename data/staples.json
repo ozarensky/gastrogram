@@ -1,0 +1,38 @@
+[
+  { "name": "whole milk", "qty": 6, "unit": "l", "category": "dairy" },
+  { "name": "eggs", "qty": 12, "unit": "unit", "category": "dairy" },
+  { "name": "salted butter", "qty": 250, "unit": "g", "category": "dairy" },
+  { "name": "cheddar", "qty": 400, "unit": "g", "category": "dairy" },
+  { "name": "plain yoghurt", "qty": 1, "unit": "kg", "category": "dairy" },
+  { "name": "kids fromage frais", "qty": 12, "unit": "unit", "category": "dairy" },
+
+  { "name": "sliced wholemeal bread", "qty": 2, "unit": "pack", "category": "bakery" },
+  { "name": "wraps", "qty": 1, "unit": "pack", "category": "bakery" },
+
+  { "name": "bananas", "qty": 8, "unit": "unit", "category": "produce" },
+  { "name": "apples", "qty": 8, "unit": "unit", "category": "produce" },
+  { "name": "satsumas", "qty": 1, "unit": "pack", "category": "produce" },
+  { "name": "blueberries", "qty": 2, "unit": "pack", "category": "produce" },
+  { "name": "carrots", "qty": 1, "unit": "kg", "category": "produce" },
+  { "name": "cucumber", "qty": 2, "unit": "unit", "category": "produce" },
+  { "name": "cherry tomatoes", "qty": 500, "unit": "g", "category": "produce" },
+
+  { "name": "porridge oats", "qty": 1, "unit": "kg", "category": "dry-goods" },
+  { "name": "coffee beans", "qty": 500, "unit": "g", "category": "dry-goods" },
+  { "name": "tea bags", "qty": 1, "unit": "pack", "category": "dry-goods" },
+
+  { "name": "orange juice", "qty": 2, "unit": "l", "category": "drinks" },
+  { "name": "sparkling water", "qty": 6, "unit": "l", "category": "drinks" },
+
+  { "name": "rice cakes", "qty": 2, "unit": "pack", "category": "snacks" },
+  { "name": "oat biscuits", "qty": 2, "unit": "pack", "category": "snacks" },
+  { "name": "salted crisps", "qty": 1, "unit": "pack", "category": "snacks" },
+  { "name": "dark chocolate", "qty": 2, "unit": "pack", "category": "snacks" },
+  { "name": "raisins snack boxes", "qty": 1, "unit": "pack", "category": "snacks" },
+
+  { "name": "kitchen roll", "qty": 1, "unit": "pack", "category": "household" },
+  { "name": "dishwasher tablets", "qty": 1, "unit": "pack", "category": "household" },
+  { "name": "washing up liquid", "qty": 1, "unit": "unit", "category": "household" },
+  { "name": "bin bags", "qty": 1, "unit": "pack", "category": "household" },
+  { "name": "toilet roll", "qty": 1, "unit": "pack", "category": "household" }
+]

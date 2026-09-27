@@ -1,0 +1,28 @@
+{
+  "id": "gnocchi-tomato-mozzarella-bake",
+  "title": "Gnocchi, tomato and mozzarella bake",
+  "cuisine": "mediterranean",
+  "activeMinutes": 8,
+  "totalMinutes": 25,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Theirs comes from the middle of the dish where it is cooler and milder — leave the chilli flakes off that half entirely. Halve the gnocchi for the 2-year-old.",
+  "tags": ["one-dish", "low-active", "meat-free", "kid-favourite"],
+  "ingredients": [
+    { "item": "fresh gnocchi", "qty": 800, "unit": "g", "category": "dry-goods" },
+    { "item": "chopped tomatoes", "qty": 2, "unit": "unit", "category": "tins-jars" },
+    { "item": "mozzarella", "qty": 250, "unit": "g", "category": "dairy", "keepsDays": 10 },
+    { "item": "fresh basil", "qty": 1, "unit": "bunch", "category": "produce", "keepsDays": 4 },
+    { "item": "red onion", "qty": 1, "unit": "unit", "category": "produce", "keepsDays": 21 },
+    { "item": "garlic", "qty": 1, "unit": "unit", "category": "produce", "keepsDays": 21 },
+    { "item": "parmesan", "qty": 100, "unit": "g", "category": "dairy", "keepsDays": 21 }
+  ],
+  "steps": [
+    "Oven to 220C.",
+    "Soften sliced red onion and garlic 4 minutes, add both tins of tomatoes, oregano and a pinch of sugar. Bubble 5 minutes.",
+    "Stir the raw gnocchi straight into the sauce — no need to boil it first.",
+    "Tip into a baking dish. Tear mozzarella over, grate parmesan on top. Chilli flakes on one half only.",
+    "Bake 15 minutes until blistered. Basil over, stand 3 minutes before serving — it comes out molten."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

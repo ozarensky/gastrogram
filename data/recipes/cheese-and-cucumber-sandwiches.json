@@ -1,0 +1,18 @@
+{
+  "id": "cheese-and-cucumber-sandwiches",
+  "title": "Cheese and cucumber sandwiches",
+  "cuisine": "european-comfort",
+  "activeMinutes": 5,
+  "totalMinutes": 5,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Cut theirs into fingers, crusts off for the 2-year-old, and slice the cucumber thin — thick rounds are a choking risk.",
+  "tags": ["lunch", "staples-only", "no-cook"],
+  "ingredients": [],
+  "steps": [
+    "Butter the wholemeal bread.",
+    "Slice cheddar and cucumber thin, layer, close.",
+    "Fingers for the toddlers, halves for the adults, cherry tomatoes on the side — quartered for the little ones."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

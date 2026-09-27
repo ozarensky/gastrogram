@@ -1,0 +1,20 @@
+{
+  "id": "yoghurt-granola-fruit",
+  "title": "Yoghurt, granola and fruit",
+  "cuisine": "european-comfort",
+  "activeMinutes": 3,
+  "totalMinutes": 3,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Granola clusters are a choking risk at 2 — crush theirs between your fingers, or give fromage frais with soft fruit instead.",
+  "tags": ["breakfast", "no-cook"],
+  "ingredients": [
+    { "item": "granola", "qty": 250, "unit": "g", "category": "dry-goods" }
+  ],
+  "steps": [
+    "Yoghurt into bowls.",
+    "Crush the granola for the toddlers, whole for the adults.",
+    "Sliced banana and blueberries over the top."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

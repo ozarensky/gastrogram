@@ -1,0 +1,20 @@
+{
+  "name": "gastrogram",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Weekly meal planning and one-shop grocery agent",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "build:lib": "tsc -p tsconfig.json --noEmit false --outDir dist --rootDir src",
+    "shopping-list": "npm run build:lib && node scripts/build-shopping-list.mjs",
+    "shop-page": "npm run build:lib && node scripts/build-shop-page.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

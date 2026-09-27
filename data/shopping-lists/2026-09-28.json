@@ -1,0 +1,739 @@
+{
+  "weekOf": "2026-09-28",
+  "items": [
+    {
+      "name": "cod fillets",
+      "qty": 500,
+      "unit": "g",
+      "category": "meat-fish",
+      "sources": [
+        "miso-cod-greens"
+      ],
+      "checked": false,
+      "note": "Cook on Monday, it keeps two days."
+    },
+    {
+      "name": "white miso paste",
+      "qty": 2,
+      "unit": "tbsp",
+      "category": "tins-jars",
+      "sources": [
+        "miso-cod-greens"
+      ],
+      "checked": false,
+      "note": "Buy one tub. Add to the pantry list after this week."
+    },
+    {
+      "name": "jasmine rice",
+      "qty": 300,
+      "unit": "g",
+      "category": "dry-goods",
+      "sources": [
+        "miso-cod-greens"
+      ],
+      "checked": false
+    },
+    {
+      "name": "tenderstem broccoli",
+      "qty": 500,
+      "unit": "g",
+      "category": "produce",
+      "sources": [
+        "miso-cod-greens",
+        "chicken-noodle-stir-fry"
+      ],
+      "checked": false
+    },
+    {
+      "name": "spring onions",
+      "qty": 2,
+      "unit": "bunch",
+      "category": "produce",
+      "sources": [
+        "miso-cod-greens",
+        "chicken-noodle-stir-fry"
+      ],
+      "checked": false
+    },
+    {
+      "name": "fresh ginger",
+      "qty": 50,
+      "unit": "g",
+      "category": "produce",
+      "sources": [
+        "miso-cod-greens",
+        "chicken-noodle-stir-fry"
+      ],
+      "checked": false
+    },
+    {
+      "name": "sesame oil",
+      "qty": 2,
+      "unit": "tbsp",
+      "category": "dry-goods",
+      "sources": [
+        "miso-cod-greens",
+        "chicken-noodle-stir-fry"
+      ],
+      "checked": false,
+      "note": "Buy one bottle. Add to the pantry list after this week."
+    },
+    {
+      "name": "granola",
+      "qty": 500,
+      "unit": "g",
+      "category": "dry-goods",
+      "sources": [
+        "yoghurt-granola-fruit"
+      ],
+      "checked": false,
+      "note": "Two breakfasts this week."
+    },
+    {
+      "name": "chicken thighs",
+      "qty": 600,
+      "unit": "g",
+      "category": "meat-fish",
+      "sources": [
+        "lemon-chicken-orzo"
+      ],
+      "checked": false
+    },
+    {
+      "name": "orzo",
+      "qty": 300,
+      "unit": "g",
+      "category": "dry-goods",
+      "sources": [
+        "lemon-chicken-orzo"
+      ],
+      "checked": false
+    },
+    {
+      "name": "lemons",
+      "qty": 2,
+      "unit": "unit",
+      "category": "produce",
+      "sources": [
+        "lemon-chicken-orzo"
+      ],
+      "checked": false
+    },
+    {
+      "name": "cherry tomatoes",
+      "qty": 800,
+      "unit": "g",
+      "category": "produce",
+      "sources": [
+        "lemon-chicken-orzo",
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "courgettes",
+      "qty": 2,
+      "unit": "unit",
+      "category": "produce",
+      "sources": [
+        "lemon-chicken-orzo"
+      ],
+      "checked": false
+    },
+    {
+      "name": "feta",
+      "qty": 200,
+      "unit": "g",
+      "category": "dairy",
+      "sources": [
+        "lemon-chicken-orzo"
+      ],
+      "checked": false
+    },
+    {
+      "name": "garlic",
+      "qty": 2,
+      "unit": "unit",
+      "category": "produce",
+      "sources": [
+        "lemon-chicken-orzo",
+        "gnocchi-tomato-mozzarella-bake"
+      ],
+      "checked": false
+    },
+    {
+      "name": "chicken stock",
+      "qty": 600,
+      "unit": "ml",
+      "category": "dry-goods",
+      "sources": [
+        "lemon-chicken-orzo"
+      ],
+      "checked": false,
+      "note": "Pantry has stock cubes. Skip if you will use them."
+    },
+    {
+      "name": "beef strips",
+      "qty": 500,
+      "unit": "g",
+      "category": "meat-fish",
+      "sources": [
+        "quick-beef-stroganoff"
+      ],
+      "checked": false
+    },
+    {
+      "name": "chestnut mushrooms",
+      "qty": 300,
+      "unit": "g",
+      "category": "produce",
+      "sources": [
+        "quick-beef-stroganoff"
+      ],
+      "checked": false
+    },
+    {
+      "name": "creme fraiche",
+      "qty": 300,
+      "unit": "ml",
+      "category": "dairy",
+      "sources": [
+        "quick-beef-stroganoff"
+      ],
+      "checked": false
+    },
+    {
+      "name": "basmati rice",
+      "qty": 300,
+      "unit": "g",
+      "category": "dry-goods",
+      "sources": [
+        "quick-beef-stroganoff"
+      ],
+      "checked": false
+    },
+    {
+      "name": "onions",
+      "qty": 2,
+      "unit": "unit",
+      "category": "produce",
+      "sources": [
+        "quick-beef-stroganoff"
+      ],
+      "checked": false
+    },
+    {
+      "name": "beef stock",
+      "qty": 200,
+      "unit": "ml",
+      "category": "dry-goods",
+      "sources": [
+        "quick-beef-stroganoff"
+      ],
+      "checked": false,
+      "note": "Pantry has stock cubes. Skip if you will use them."
+    },
+    {
+      "name": "flat leaf parsley",
+      "qty": 1,
+      "unit": "bunch",
+      "category": "produce",
+      "sources": [
+        "quick-beef-stroganoff"
+      ],
+      "checked": false
+    },
+    {
+      "name": "chicken breast",
+      "qty": 500,
+      "unit": "g",
+      "category": "meat-fish",
+      "sources": [
+        "chicken-noodle-stir-fry"
+      ],
+      "checked": false
+    },
+    {
+      "name": "egg noodles",
+      "qty": 300,
+      "unit": "g",
+      "category": "dry-goods",
+      "sources": [
+        "chicken-noodle-stir-fry"
+      ],
+      "checked": false
+    },
+    {
+      "name": "red peppers",
+      "qty": 2,
+      "unit": "unit",
+      "category": "produce",
+      "sources": [
+        "chicken-noodle-stir-fry"
+      ],
+      "checked": false
+    },
+    {
+      "name": "fresh gnocchi",
+      "qty": 800,
+      "unit": "g",
+      "category": "dry-goods",
+      "sources": [
+        "gnocchi-tomato-mozzarella-bake"
+      ],
+      "checked": false
+    },
+    {
+      "name": "chopped tomatoes",
+      "qty": 2,
+      "unit": "unit",
+      "category": "tins-jars",
+      "sources": [
+        "gnocchi-tomato-mozzarella-bake"
+      ],
+      "checked": false
+    },
+    {
+      "name": "mozzarella",
+      "qty": 250,
+      "unit": "g",
+      "category": "dairy",
+      "sources": [
+        "gnocchi-tomato-mozzarella-bake"
+      ],
+      "checked": false
+    },
+    {
+      "name": "fresh basil",
+      "qty": 1,
+      "unit": "bunch",
+      "category": "produce",
+      "sources": [
+        "gnocchi-tomato-mozzarella-bake"
+      ],
+      "checked": false
+    },
+    {
+      "name": "red onion",
+      "qty": 3,
+      "unit": "unit",
+      "category": "produce",
+      "sources": [
+        "gnocchi-tomato-mozzarella-bake",
+        "chicken-sausage-root-traybake"
+      ],
+      "checked": false
+    },
+    {
+      "name": "parmesan",
+      "qty": 100,
+      "unit": "g",
+      "category": "dairy",
+      "sources": [
+        "gnocchi-tomato-mozzarella-bake"
+      ],
+      "checked": false
+    },
+    {
+      "name": "chicken sausages",
+      "qty": 8,
+      "unit": "unit",
+      "category": "meat-fish",
+      "sources": [
+        "chicken-sausage-root-traybake"
+      ],
+      "checked": false
+    },
+    {
+      "name": "new potatoes",
+      "qty": 1,
+      "unit": "kg",
+      "category": "produce",
+      "sources": [
+        "chicken-sausage-root-traybake"
+      ],
+      "checked": false
+    },
+    {
+      "name": "parsnips",
+      "qty": 500,
+      "unit": "g",
+      "category": "produce",
+      "sources": [
+        "chicken-sausage-root-traybake"
+      ],
+      "checked": false
+    },
+    {
+      "name": "fresh rosemary",
+      "qty": 1,
+      "unit": "bunch",
+      "category": "produce",
+      "sources": [
+        "chicken-sausage-root-traybake"
+      ],
+      "checked": false
+    },
+    {
+      "name": "coconut milk",
+      "qty": 2,
+      "unit": "unit",
+      "category": "tins-jars",
+      "sources": [
+        "coconut-veg-noodle-soup"
+      ],
+      "checked": false
+    },
+    {
+      "name": "rice noodles",
+      "qty": 250,
+      "unit": "g",
+      "category": "dry-goods",
+      "sources": [
+        "coconut-veg-noodle-soup"
+      ],
+      "checked": false
+    },
+    {
+      "name": "frozen peas",
+      "qty": 200,
+      "unit": "g",
+      "category": "frozen",
+      "sources": [
+        "coconut-veg-noodle-soup"
+      ],
+      "checked": false
+    },
+    {
+      "name": "frozen spinach",
+      "qty": 200,
+      "unit": "g",
+      "category": "frozen",
+      "sources": [
+        "coconut-veg-noodle-soup"
+      ],
+      "checked": false
+    },
+    {
+      "name": "sweetcorn",
+      "qty": 1,
+      "unit": "unit",
+      "category": "tins-jars",
+      "sources": [
+        "coconut-veg-noodle-soup"
+      ],
+      "checked": false
+    },
+    {
+      "name": "red curry paste",
+      "qty": 2,
+      "unit": "tbsp",
+      "category": "tins-jars",
+      "sources": [
+        "coconut-veg-noodle-soup"
+      ],
+      "checked": false,
+      "note": "Buy one jar. Add to the pantry list after this week."
+    },
+    {
+      "name": "limes",
+      "qty": 2,
+      "unit": "unit",
+      "category": "produce",
+      "sources": [
+        "coconut-veg-noodle-soup"
+      ],
+      "checked": false
+    },
+    {
+      "name": "whole milk",
+      "qty": 6,
+      "unit": "l",
+      "category": "dairy",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "eggs",
+      "qty": 12,
+      "unit": "unit",
+      "category": "dairy",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "salted butter",
+      "qty": 250,
+      "unit": "g",
+      "category": "dairy",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "cheddar",
+      "qty": 400,
+      "unit": "g",
+      "category": "dairy",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "plain yoghurt",
+      "qty": 1,
+      "unit": "kg",
+      "category": "dairy",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "kids fromage frais",
+      "qty": 12,
+      "unit": "unit",
+      "category": "dairy",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "sliced wholemeal bread",
+      "qty": 2,
+      "unit": "pack",
+      "category": "bakery",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "wraps",
+      "qty": 1,
+      "unit": "pack",
+      "category": "bakery",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "bananas",
+      "qty": 8,
+      "unit": "unit",
+      "category": "produce",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "apples",
+      "qty": 8,
+      "unit": "unit",
+      "category": "produce",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "satsumas",
+      "qty": 1,
+      "unit": "pack",
+      "category": "produce",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "blueberries",
+      "qty": 2,
+      "unit": "pack",
+      "category": "produce",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "carrots",
+      "qty": 1,
+      "unit": "kg",
+      "category": "produce",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "cucumber",
+      "qty": 2,
+      "unit": "unit",
+      "category": "produce",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "porridge oats",
+      "qty": 1,
+      "unit": "kg",
+      "category": "dry-goods",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "coffee beans",
+      "qty": 500,
+      "unit": "g",
+      "category": "dry-goods",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "tea bags",
+      "qty": 1,
+      "unit": "pack",
+      "category": "dry-goods",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "orange juice",
+      "qty": 2,
+      "unit": "l",
+      "category": "drinks",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "sparkling water",
+      "qty": 6,
+      "unit": "l",
+      "category": "drinks",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "rice cakes",
+      "qty": 2,
+      "unit": "pack",
+      "category": "snacks",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "oat biscuits",
+      "qty": 2,
+      "unit": "pack",
+      "category": "snacks",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "salted crisps",
+      "qty": 1,
+      "unit": "pack",
+      "category": "snacks",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "dark chocolate",
+      "qty": 2,
+      "unit": "pack",
+      "category": "snacks",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "raisins snack boxes",
+      "qty": 1,
+      "unit": "pack",
+      "category": "snacks",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "kitchen roll",
+      "qty": 1,
+      "unit": "pack",
+      "category": "household",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "dishwasher tablets",
+      "qty": 1,
+      "unit": "pack",
+      "category": "household",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "washing up liquid",
+      "qty": 1,
+      "unit": "unit",
+      "category": "household",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "bin bags",
+      "qty": 1,
+      "unit": "pack",
+      "category": "household",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    },
+    {
+      "name": "toilet roll",
+      "qty": 1,
+      "unit": "pack",
+      "category": "household",
+      "sources": [
+        "staples"
+      ],
+      "checked": false
+    }
+  ]
+}

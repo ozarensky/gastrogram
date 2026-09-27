@@ -1,0 +1,18 @@
+{
+  "id": "cheddar-veg-wraps",
+  "title": "Cheddar wraps with carrot and cucumber sticks",
+  "cuisine": "european-comfort",
+  "activeMinutes": 5,
+  "totalMinutes": 7,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Roll theirs tight and slice into pinwheels. Steam the 2-year-old's carrot sticks for 2 minutes — raw carrot is a choking risk at that age.",
+  "tags": ["lunch", "staples-only", "no-cook"],
+  "ingredients": [],
+  "steps": [
+    "Grate cheddar over the wraps with a spoon of yoghurt to bind.",
+    "Roll, slice into pinwheels for the toddlers, halve for the adults.",
+    "Carrot and cucumber sticks and halved cherry tomatoes alongside."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

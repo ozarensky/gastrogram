@@ -1,0 +1,54 @@
+{
+  "weekOf": "2026-09-28",
+  "days": [
+    {
+      "date": "2026-09-28",
+      "breakfast": { "recipeId": "porridge-berries" },
+      "lunch": { "recipeId": "cheese-and-cucumber-sandwiches" },
+      "dinner": { "recipeId": "miso-cod-greens", "notes": "Cod first — it only keeps two days." },
+      "snacks": ["banana", "rice cakes"]
+    },
+    {
+      "date": "2026-09-29",
+      "breakfast": { "recipeId": "yoghurt-granola-fruit" },
+      "lunch": { "recipeId": "cheddar-veg-wraps" },
+      "dinner": { "recipeId": "lemon-chicken-orzo" },
+      "snacks": ["apple", "fromage frais"]
+    },
+    {
+      "date": "2026-09-30",
+      "breakfast": { "recipeId": "scrambled-eggs-toast" },
+      "lunch": { "recipeId": "cheese-and-cucumber-sandwiches" },
+      "dinner": { "recipeId": "quick-beef-stroganoff" },
+      "snacks": ["satsuma", "oat biscuits"]
+    },
+    {
+      "date": "2026-10-01",
+      "breakfast": { "recipeId": "porridge-berries" },
+      "lunch": { "recipeId": "cheddar-veg-wraps" },
+      "dinner": { "recipeId": "chicken-noodle-stir-fry", "notes": "Uses the second half of the tenderstem, spring onions and ginger from Monday." },
+      "snacks": ["banana", "raisins"]
+    },
+    {
+      "date": "2026-10-02",
+      "breakfast": { "recipeId": "yoghurt-granola-fruit" },
+      "lunch": { "recipeId": "cheese-and-cucumber-sandwiches" },
+      "dinner": { "recipeId": "gnocchi-tomato-mozzarella-bake", "notes": "Last day for the basil." },
+      "snacks": ["apple", "rice cakes"]
+    },
+    {
+      "date": "2026-10-03",
+      "breakfast": { "recipeId": "scrambled-eggs-toast" },
+      "lunch": { "recipeId": "cheddar-veg-wraps" },
+      "dinner": { "recipeId": "chicken-sausage-root-traybake", "notes": "45 minutes, so weekend only." },
+      "snacks": ["blueberries", "oat biscuits"]
+    },
+    {
+      "date": "2026-10-04",
+      "breakfast": { "recipeId": "porridge-berries" },
+      "lunch": { "recipeId": "cheese-and-cucumber-sandwiches" },
+      "dinner": { "recipeId": "coconut-veg-noodle-soup", "notes": "Cupboard and freezer only — nothing fresh left to go off." },
+      "snacks": ["satsuma", "fromage frais"]
+    }
+  ]
+}

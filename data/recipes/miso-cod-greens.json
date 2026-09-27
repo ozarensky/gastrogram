@@ -1,0 +1,29 @@
+{
+  "id": "miso-cod-greens",
+  "title": "Miso cod with greens and rice",
+  "cuisine": "asian",
+  "activeMinutes": 12,
+  "totalMinutes": 20,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Flake the toddlers' cod over plain rice before the miso glaze goes on — miso is very salty for under-3s. Give them broccoli tips steamed soft, cut small.",
+  "tags": ["one-pan", "fish", "monday-fresh"],
+  "ingredients": [
+    { "item": "cod fillets", "qty": 500, "unit": "g", "category": "meat-fish", "keepsDays": 2 },
+    { "item": "white miso paste", "qty": 2, "unit": "tbsp", "category": "tins-jars" },
+    { "item": "jasmine rice", "qty": 300, "unit": "g", "category": "dry-goods" },
+    { "item": "tenderstem broccoli", "qty": 300, "unit": "g", "category": "produce", "keepsDays": 4 },
+    { "item": "spring onions", "qty": 1, "unit": "bunch", "category": "produce", "keepsDays": 5 },
+    { "item": "fresh ginger", "qty": 30, "unit": "g", "category": "produce", "keepsDays": 14 },
+    { "item": "sesame oil", "qty": 1, "unit": "tbsp", "category": "dry-goods" }
+  ],
+  "steps": [
+    "Rice on first: rinse, then simmer covered for 12 minutes and leave it alone.",
+    "Heat the oven grill. Mix the miso, grated ginger and sesame oil into a loose paste.",
+    "Sit the cod on a lined tray. Set aside the toddlers' portions unglazed, then brush the rest with miso.",
+    "Grill 8 minutes until the fish flakes and the glaze is bubbling.",
+    "Steam or microwave the broccoli 4 minutes while the fish cooks.",
+    "Serve over rice, scattered with sliced spring onions."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

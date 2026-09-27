@@ -1,0 +1,29 @@
+{
+  "id": "quick-beef-stroganoff",
+  "title": "Quick beef stroganoff with rice",
+  "cuisine": "european-comfort",
+  "activeMinutes": 15,
+  "totalMinutes": 25,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Serve the toddlers straight after the crème fraîche goes in, before the mustard and black pepper. Chop their beef strips small — long strips are hard for a 2-year-old.",
+  "tags": ["one-pan", "freezer-ok"],
+  "ingredients": [
+    { "item": "beef strips", "qty": 500, "unit": "g", "category": "meat-fish", "keepsDays": 3 },
+    { "item": "chestnut mushrooms", "qty": 300, "unit": "g", "category": "produce", "keepsDays": 5 },
+    { "item": "creme fraiche", "qty": 300, "unit": "ml", "category": "dairy", "keepsDays": 10 },
+    { "item": "basmati rice", "qty": 300, "unit": "g", "category": "dry-goods" },
+    { "item": "onions", "qty": 2, "unit": "unit", "category": "produce", "keepsDays": 21 },
+    { "item": "beef stock", "qty": 200, "unit": "ml", "category": "dry-goods" },
+    { "item": "flat leaf parsley", "qty": 1, "unit": "bunch", "category": "produce", "keepsDays": 4 }
+  ],
+  "steps": [
+    "Rice on to simmer, covered, 12 minutes.",
+    "Fry sliced onion 4 minutes, add mushrooms, cook hard 4 minutes until browned.",
+    "Push aside, sear the beef strips 2 minutes — no longer or they toughen.",
+    "Add stock and smoked paprika, bubble 2 minutes, stir in crème fraîche.",
+    "Plate the toddlers now.",
+    "Stir mustard and plenty of pepper into the pan, scatter parsley, serve over rice."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

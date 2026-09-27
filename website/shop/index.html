@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="dark light">
+<title>The Weekly Shop</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+  /* Direction: a slate list on the trolley handle, chalk-white ink, marked off with a yellow highlighter.
+     Inverted on request: the dark palette is the default and the viewer's dark theme flips it to paper. */
+  :root {
+    color-scheme: dark;
+    --paper: #161917;
+    --paper-2: #1F2320;
+    --ink: #ECEEE8;
+    --ink-2: #9BA39C;
+    --rule: #2D322E;
+    --mark: #E6B92B;
+    --done: #6F776F;
+    --focus: #7FB0FF;
+    --display: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+    --body: 'Atkinson Hyperlegible', 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: light;
+      --paper: #F5F6F3; --paper-2: #E9ECE6; --ink: #171B18; --ink-2: #5B625D;
+      --rule: #D3D8D1; --mark: #F7C948; --done: #8E958F; --focus: #1D5FBF;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: light;
+    --paper: #F5F6F3; --paper-2: #E9ECE6; --ink: #171B18; --ink-2: #5B625D;
+    --rule: #D3D8D1; --mark: #F7C948; --done: #8E958F; --focus: #1D5FBF;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.35;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 560px; margin-inline: auto; padding-inline: 16px; padding-block: 0 40px; }
+
+  /* Sticky progress header */
+  .top {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 5;
+    background: var(--paper);
+    padding-block: 14px 10px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .top-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
+  .eyebrow {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .count {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 46px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .count .of { font-size: 22px; font-weight: 700; color: var(--ink-2); }
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .chip {
+    font: 700 13px/1 var(--body);
+    padding: 10px 12px;
+    min-height: 36px;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .chip:focus-visible, .reset:focus-visible, .plan summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .bar { height: 6px; background: var(--rule); margin-top: 12px; border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; width: 0; background: var(--mark); transition: width .25s ease; }
+  .sync { font-size: 12px; color: var(--ink-2); margin-top: 6px; min-height: 16px; }
+  .sync[data-mode="synced"]::before {
+    content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--mark); margin-right: 6px; vertical-align: 1px;
+  }
+
+  /* The week's dinners, folded away so the list comes first */
+  .plan { margin-block: 14px 4px; border: 1px solid var(--rule); border-radius: 8px; padding: 10px 14px; }
+  .plan summary {
+    font-family: var(--display); font-weight: 700; font-size: 16px;
+    text-transform: uppercase; letter-spacing: .06em; cursor: pointer;
+  }
+  .plan ol { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; }
+  .plan li { display: grid; grid-template-columns: 44px 1fr; gap: 8px; font-size: 15px; align-items: baseline; }
+  .plan .day { font-family: var(--display); font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: .04em; }
+  .plan .pnote, .plan .also { display: block; font-size: 13px; color: var(--ink-2); }
+  .plan .also { margin: 12px 0 2px; }
+
+  /* Aisles */
+  .aisle { margin-top: 24px; }
+  .aisle h2 {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 0; padding: 6px 0;
+    font-family: var(--display); font-weight: 800; font-size: 24px;
+    text-transform: uppercase; letter-spacing: .05em;
+    border-bottom: 2px solid var(--ink);
+  }
+  .aisle h2 .left { font-weight: 700; font-size: 14px; letter-spacing: .06em; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .aisle.all-done h2 .left { color: var(--ink); background: var(--mark); padding: 2px 8px; border-radius: 4px; }
+  .items { list-style: none; margin: 0; padding: 0; }
+  .item + .item { border-top: 1px solid var(--rule); }
+  .item label {
+    position: relative;
+    display: grid; grid-template-columns: 30px 1fr auto; gap: 12px; align-items: center;
+    min-height: 56px; padding: 10px 0;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .tick { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+  .box {
+    width: 28px; height: 28px; border: 2px solid var(--ink); border-radius: 6px;
+    display: grid; place-items: center; background: var(--paper);
+    transition: background .15s ease;
+  }
+  .box::after {
+    content: ""; width: 8px; height: 14px;
+    border: solid var(--ink); border-width: 0 3px 3px 0;
+    transform: rotate(45deg) translate(-1px, -2px); opacity: 0;
+  }
+  .tick:focus-visible + .box { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .name { font-weight: 700; font-size: 17px; overflow-wrap: anywhere; }
+  .src { font-size: 13px; color: var(--ink-2); }
+  .note { font-size: 13px; color: var(--ink); background: var(--paper-2); padding: 2px 6px; border-radius: 4px; align-self: flex-start; margin-top: 2px; }
+  .qty { font-variant-numeric: tabular-nums; font-size: 16px; white-space: nowrap; text-align: right; }
+
+  .item.done .box { background: var(--mark); animation: pop .18s ease; }
+  .item.done .box::after { opacity: 1; }
+  .item.done .name { color: var(--done); text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--ink-2); }
+  .item.done .src, .item.done .qty { color: var(--done); }
+  .item.done .note { opacity: .55; }
+  @keyframes pop { 50% { transform: scale(1.12); } }
+  .hide-done .item.done { display: none; }
+  .hide-done .aisle.all-done { display: none; }
+
+  footer { margin-top: 36px; border-top: 2px solid var(--ink); padding-top: 16px; display: grid; gap: 14px; font-size: 14px; color: var(--ink-2); }
+  footer p { margin: 0; }
+  .reset {
+    font: 700 15px/1 var(--body); padding: 14px; min-height: 48px;
+    border: 2px solid var(--ink); border-radius: 8px; background: transparent; color: var(--ink); cursor: pointer;
+  }
+  .reset.armed { background: var(--mark); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+<style>
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="top-row">
+      <div>
+        <div class="eyebrow">The Weekly Shop · week of Mon 28 Sep</div>
+        <h1 class="count"><span id="doneCount">0</span><span class="of"> of 72</span></h1>
+      </div>
+      <div class="controls">
+        <button type="button" class="chip" id="hideDone" aria-pressed="false">Hide ticked</button>
+        <button type="button" class="chip" id="wake" aria-pressed="false" hidden>Keep screen on</button>
+      </div>
+    </div>
+    <div class="bar" role="progressbar" aria-label="Items ticked" aria-valuemin="0" aria-valuemax="72" aria-valuenow="0"><div class="bar-fill" id="barFill"></div></div>
+    <div class="sync" id="sync" data-mode="local">Saved on this phone</div>
+  </header>
+
+  <details class="plan" id="plan">
+    <summary>This week's dinners</summary>
+    <ol>
+      <li><span class="day">Mon</span><span>Miso cod with greens and rice<span class="pnote">Cod first — it only keeps two days.</span></span></li>
+      <li><span class="day">Tue</span><span>Lemon chicken orzo traybake</span></li>
+      <li><span class="day">Wed</span><span>Quick beef stroganoff with rice</span></li>
+      <li><span class="day">Thu</span><span>Chicken and vegetable noodle stir-fry<span class="pnote">Uses the second half of the tenderstem, spring onions and ginger from Monday.</span></span></li>
+      <li><span class="day">Fri</span><span>Gnocchi, tomato and mozzarella bake<span class="pnote">Last day for the basil.</span></span></li>
+      <li><span class="day">Sat</span><span>Chicken sausage and root vegetable traybake<span class="pnote">45 minutes, so weekend only.</span></span></li>
+      <li><span class="day">Sun</span><span>Coconut vegetable noodle soup<span class="pnote">Cupboard and freezer only — nothing fresh left to go off.</span></span></li>
+    </ol>
+    <span class="also">Breakfasts: Porridge with berries, Yoghurt, granola and fruit, Scrambled eggs on toast. Lunches: Cheese and cucumber sandwiches, Cheddar wraps with carrot and cucumber sticks.</span>
+  </details>
+
+  <section class="aisle" id="produce">
+    <h2><span>Produce</span><span class="left" data-left>23 left</span></h2>
+    <ul class="items">
+      <li class="item" data-slug="apples">
+        <label for="tick-apples">
+          <input type="checkbox" class="tick" id="tick-apples">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Apples</span><span class="src">staples</span></span>
+          <span class="qty">8</span>
+        </label>
+      </li>
+      <li class="item" data-slug="bananas">
+        <label for="tick-bananas">
+          <input type="checkbox" class="tick" id="tick-bananas">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Bananas</span><span class="src">staples</span></span>
+          <span class="qty">8</span>
+        </label>
+      </li>
+      <li class="item" data-slug="blueberries">
+        <label for="tick-blueberries">
+          <input type="checkbox" class="tick" id="tick-blueberries">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Blueberries</span><span class="src">staples</span></span>
+          <span class="qty">2 packs</span>
+        </label>
+      </li>
+      <li class="item" data-slug="carrots">
+        <label for="tick-carrots">
+          <input type="checkbox" class="tick" id="tick-carrots">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Carrots</span><span class="src">staples</span></span>
+          <span class="qty">1 kg</span>
+        </label>
+      </li>
+      <li class="item" data-slug="cherry-tomatoes">
+        <label for="tick-cherry-tomatoes">
+          <input type="checkbox" class="tick" id="tick-cherry-tomatoes">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Cherry tomatoes</span><span class="src">Tue lemon orzo, staples</span></span>
+          <span class="qty">800 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="chestnut-mushrooms">
+        <label for="tick-chestnut-mushrooms">
+          <input type="checkbox" class="tick" id="tick-chestnut-mushrooms">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Chestnut mushrooms</span><span class="src">Wed stroganoff</span></span>
+          <span class="qty">300 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="courgettes">
+        <label for="tick-courgettes">
+          <input type="checkbox" class="tick" id="tick-courgettes">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Courgettes</span><span class="src">Tue lemon orzo</span></span>
+          <span class="qty">2</span>
+        </label>
+      </li>
+      <li class="item" data-slug="cucumber">
+        <label for="tick-cucumber">
+          <input type="checkbox" class="tick" id="tick-cucumber">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Cucumber</span><span class="src">staples</span></span>
+          <span class="qty">2</span>
+        </label>
+      </li>
+      <li class="item" data-slug="flat-leaf-parsley">
+        <label for="tick-flat-leaf-parsley">
+          <input type="checkbox" class="tick" id="tick-flat-leaf-parsley">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Flat leaf parsley</span><span class="src">Wed stroganoff</span></span>
+          <span class="qty">1 bunch</span>
+        </label>
+      </li>
+      <li class="item" data-slug="fresh-basil">
+        <label for="tick-fresh-basil">
+          <input type="checkbox" class="tick" id="tick-fresh-basil">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Fresh basil</span><span class="src">Fri gnocchi bake</span></span>
+          <span class="qty">1 bunch</span>
+        </label>
+      </li>
+      <li class="item" data-slug="fresh-ginger">
+        <label for="tick-fresh-ginger">
+          <input type="checkbox" class="tick" id="tick-fresh-ginger">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Fresh ginger</span><span class="src">Mon miso cod, Thu stir-fry</span></span>
+          <span class="qty">50 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="fresh-rosemary">
+        <label for="tick-fresh-rosemary">
+          <input type="checkbox" class="tick" id="tick-fresh-rosemary">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Fresh rosemary</span><span class="src">Sat traybake</span></span>
+          <span class="qty">1 bunch</span>
+        </label>
+      </li>
+      <li class="item" data-slug="garlic">
+        <label for="tick-garlic">
+          <input type="checkbox" class="tick" id="tick-garlic">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Garlic</span><span class="src">Tue lemon orzo, Fri gnocchi bake</span></span>
+          <span class="qty">2</span>
+        </label>
+      </li>
+      <li class="item" data-slug="lemons">
+        <label for="tick-lemons">
+          <input type="checkbox" class="tick" id="tick-lemons">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Lemons</span><span class="src">Tue lemon orzo</span></span>
+          <span class="qty">2</span>
+        </label>
+      </li>
+      <li class="item" data-slug="limes">
+        <label for="tick-limes">
+          <input type="checkbox" class="tick" id="tick-limes">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Limes</span><span class="src">Sun coconut soup</span></span>
+          <span class="qty">2</span>
+        </label>
+      </li>
+      <li class="item" data-slug="new-potatoes">
+        <label for="tick-new-potatoes">
+          <input type="checkbox" class="tick" id="tick-new-potatoes">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">New potatoes</span><span class="src">Sat traybake</span></span>
+          <span class="qty">1 kg</span>
+        </label>
+      </li>
+      <li class="item" data-slug="onions">
+        <label for="tick-onions">
+          <input type="checkbox" class="tick" id="tick-onions">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Onions</span><span class="src">Wed stroganoff</span></span>
+          <span class="qty">2</span>
+        </label>
+      </li>
+      <li class="item" data-slug="parsnips">
+        <label for="tick-parsnips">
+          <input type="checkbox" class="tick" id="tick-parsnips">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Parsnips</span><span class="src">Sat traybake</span></span>
+          <span class="qty">500 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="red-onion">
+        <label for="tick-red-onion">
+          <input type="checkbox" class="tick" id="tick-red-onion">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Red onion</span><span class="src">Fri gnocchi bake, Sat traybake</span></span>
+          <span class="qty">3</span>
+        </label>
+      </li>
+      <li class="item" data-slug="red-peppers">
+        <label for="tick-red-peppers">
+          <input type="checkbox" class="tick" id="tick-red-peppers">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Red peppers</span><span class="src">Thu stir-fry</span></span>
+          <span class="qty">2</span>
+        </label>
+      </li>
+      <li class="item" data-slug="satsumas">
+        <label for="tick-satsumas">
+          <input type="checkbox" class="tick" id="tick-satsumas">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Satsumas</span><span class="src">staples</span></span>
+          <span class="qty">1 pack</span>
+        </label>
+      </li>
+      <li class="item" data-slug="spring-onions">
+        <label for="tick-spring-onions">
+          <input type="checkbox" class="tick" id="tick-spring-onions">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Spring onions</span><span class="src">Mon miso cod, Thu stir-fry</span></span>
+          <span class="qty">2 bunches</span>
+        </label>
+      </li>
+      <li class="item" data-slug="tenderstem-broccoli">
+        <label for="tick-tenderstem-broccoli">
+          <input type="checkbox" class="tick" id="tick-tenderstem-broccoli">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Tenderstem broccoli</span><span class="src">Mon miso cod, Thu stir-fry</span></span>
+          <span class="qty">500 g</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+  <section class="aisle" id="bakery">
+    <h2><span>Bakery</span><span class="left" data-left>2 left</span></h2>
+    <ul class="items">
+      <li class="item" data-slug="sliced-wholemeal-bread">
+        <label for="tick-sliced-wholemeal-bread">
+          <input type="checkbox" class="tick" id="tick-sliced-wholemeal-bread">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Sliced wholemeal bread</span><span class="src">staples</span></span>
+          <span class="qty">2 packs</span>
+        </label>
+      </li>
+      <li class="item" data-slug="wraps">
+        <label for="tick-wraps">
+          <input type="checkbox" class="tick" id="tick-wraps">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Wraps</span><span class="src">staples</span></span>
+          <span class="qty">1 pack</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+  <section class="aisle" id="dairy">
+    <h2><span>Dairy</span><span class="left" data-left>10 left</span></h2>
+    <ul class="items">
+      <li class="item" data-slug="cheddar">
+        <label for="tick-cheddar">
+          <input type="checkbox" class="tick" id="tick-cheddar">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Cheddar</span><span class="src">staples</span></span>
+          <span class="qty">400 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="creme-fraiche">
+        <label for="tick-creme-fraiche">
+          <input type="checkbox" class="tick" id="tick-creme-fraiche">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Creme fraiche</span><span class="src">Wed stroganoff</span></span>
+          <span class="qty">300 ml</span>
+        </label>
+      </li>
+      <li class="item" data-slug="eggs">
+        <label for="tick-eggs">
+          <input type="checkbox" class="tick" id="tick-eggs">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Eggs</span><span class="src">staples</span></span>
+          <span class="qty">12</span>
+        </label>
+      </li>
+      <li class="item" data-slug="feta">
+        <label for="tick-feta">
+          <input type="checkbox" class="tick" id="tick-feta">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Feta</span><span class="src">Tue lemon orzo</span></span>
+          <span class="qty">200 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="kids-fromage-frais">
+        <label for="tick-kids-fromage-frais">
+          <input type="checkbox" class="tick" id="tick-kids-fromage-frais">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Kids fromage frais</span><span class="src">staples</span></span>
+          <span class="qty">12</span>
+        </label>
+      </li>
+      <li class="item" data-slug="mozzarella">
+        <label for="tick-mozzarella">
+          <input type="checkbox" class="tick" id="tick-mozzarella">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Mozzarella</span><span class="src">Fri gnocchi bake</span></span>
+          <span class="qty">250 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="parmesan">
+        <label for="tick-parmesan">
+          <input type="checkbox" class="tick" id="tick-parmesan">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Parmesan</span><span class="src">Fri gnocchi bake</span></span>
+          <span class="qty">100 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="plain-yoghurt">
+        <label for="tick-plain-yoghurt">
+          <input type="checkbox" class="tick" id="tick-plain-yoghurt">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Plain yoghurt</span><span class="src">staples</span></span>
+          <span class="qty">1 kg</span>
+        </label>
+      </li>
+      <li class="item" data-slug="salted-butter">
+        <label for="tick-salted-butter">
+          <input type="checkbox" class="tick" id="tick-salted-butter">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Salted butter</span><span class="src">staples</span></span>
+          <span class="qty">250 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="whole-milk">
+        <label for="tick-whole-milk">
+          <input type="checkbox" class="tick" id="tick-whole-milk">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Whole milk</span><span class="src">staples</span></span>
+          <span class="qty">6 l</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+  <section class="aisle" id="meat-fish">
+    <h2><span>Meat &amp; fish</span><span class="left" data-left>5 left</span></h2>
+    <ul class="items">
+      <li class="item" data-slug="beef-strips">
+        <label for="tick-beef-strips">
+          <input type="checkbox" class="tick" id="tick-beef-strips">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Beef strips</span><span class="src">Wed stroganoff</span></span>
+          <span class="qty">500 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="chicken-breast">
+        <label for="tick-chicken-breast">
+          <input type="checkbox" class="tick" id="tick-chicken-breast">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Chicken breast</span><span class="src">Thu stir-fry</span></span>
+          <span class="qty">500 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="chicken-sausages">
+        <label for="tick-chicken-sausages">
+          <input type="checkbox" class="tick" id="tick-chicken-sausages">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Chicken sausages</span><span class="src">Sat traybake</span></span>
+          <span class="qty">8</span>
+        </label>
+      </li>
+      <li class="item" data-slug="chicken-thighs">
+        <label for="tick-chicken-thighs">
+          <input type="checkbox" class="tick" id="tick-chicken-thighs">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Chicken thighs</span><span class="src">Tue lemon orzo</span></span>
+          <span class="qty">600 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="cod-fillets">
+        <label for="tick-cod-fillets">
+          <input type="checkbox" class="tick" id="tick-cod-fillets">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Cod fillets</span><span class="src">Mon miso cod</span><span class="note">Cook on Monday, it keeps two days.</span></span>
+          <span class="qty">500 g</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+  <section class="aisle" id="frozen">
+    <h2><span>Frozen</span><span class="left" data-left>2 left</span></h2>
+    <ul class="items">
+      <li class="item" data-slug="frozen-peas">
+        <label for="tick-frozen-peas">
+          <input type="checkbox" class="tick" id="tick-frozen-peas">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Frozen peas</span><span class="src">Sun coconut soup</span></span>
+          <span class="qty">200 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="frozen-spinach">
+        <label for="tick-frozen-spinach">
+          <input type="checkbox" class="tick" id="tick-frozen-spinach">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Frozen spinach</span><span class="src">Sun coconut soup</span></span>
+          <span class="qty">200 g</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+  <section class="aisle" id="dry-goods">
+    <h2><span>Dry goods</span><span class="left" data-left>13 left</span></h2>
+    <ul class="items">
+      <li class="item" data-slug="basmati-rice">
+        <label for="tick-basmati-rice">
+          <input type="checkbox" class="tick" id="tick-basmati-rice">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Basmati rice</span><span class="src">Wed stroganoff</span></span>
+          <span class="qty">300 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="beef-stock">
+        <label for="tick-beef-stock">
+          <input type="checkbox" class="tick" id="tick-beef-stock">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Beef stock</span><span class="src">Wed stroganoff</span><span class="note">Pantry has stock cubes. Skip if you will use them.</span></span>
+          <span class="qty">200 ml</span>
+        </label>
+      </li>
+      <li class="item" data-slug="chicken-stock">
+        <label for="tick-chicken-stock">
+          <input type="checkbox" class="tick" id="tick-chicken-stock">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Chicken stock</span><span class="src">Tue lemon orzo</span><span class="note">Pantry has stock cubes. Skip if you will use them.</span></span>
+          <span class="qty">600 ml</span>
+        </label>
+      </li>
+      <li class="item" data-slug="coffee-beans">
+        <label for="tick-coffee-beans">
+          <input type="checkbox" class="tick" id="tick-coffee-beans">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Coffee beans</span><span class="src">staples</span></span>
+          <span class="qty">500 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="egg-noodles">
+        <label for="tick-egg-noodles">
+          <input type="checkbox" class="tick" id="tick-egg-noodles">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Egg noodles</span><span class="src">Thu stir-fry</span></span>
+          <span class="qty">300 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="fresh-gnocchi">
+        <label for="tick-fresh-gnocchi">
+          <input type="checkbox" class="tick" id="tick-fresh-gnocchi">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Fresh gnocchi</span><span class="src">Fri gnocchi bake</span></span>
+          <span class="qty">800 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="granola">
+        <label for="tick-granola">
+          <input type="checkbox" class="tick" id="tick-granola">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Granola</span><span class="src">breakfasts</span><span class="note">Two breakfasts this week.</span></span>
+          <span class="qty">500 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="jasmine-rice">
+        <label for="tick-jasmine-rice">
+          <input type="checkbox" class="tick" id="tick-jasmine-rice">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Jasmine rice</span><span class="src">Mon miso cod</span></span>
+          <span class="qty">300 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="orzo">
+        <label for="tick-orzo">
+          <input type="checkbox" class="tick" id="tick-orzo">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Orzo</span><span class="src">Tue lemon orzo</span></span>
+          <span class="qty">300 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="porridge-oats">
+        <label for="tick-porridge-oats">
+          <input type="checkbox" class="tick" id="tick-porridge-oats">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Porridge oats</span><span class="src">staples</span></span>
+          <span class="qty">1 kg</span>
+        </label>
+      </li>
+      <li class="item" data-slug="rice-noodles">
+        <label for="tick-rice-noodles">
+          <input type="checkbox" class="tick" id="tick-rice-noodles">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Rice noodles</span><span class="src">Sun coconut soup</span></span>
+          <span class="qty">250 g</span>
+        </label>
+      </li>
+      <li class="item" data-slug="sesame-oil">
+        <label for="tick-sesame-oil">
+          <input type="checkbox" class="tick" id="tick-sesame-oil">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Sesame oil</span><span class="src">Mon miso cod, Thu stir-fry</span><span class="note">Buy one bottle. Add to the pantry list after this week.</span></span>
+          <span class="qty">2 tbsp</span>
+        </label>
+      </li>
+      <li class="item" data-slug="tea-bags">
+        <label for="tick-tea-bags">
+          <input type="checkbox" class="tick" id="tick-tea-bags">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Tea bags</span><span class="src">staples</span></span>
+          <span class="qty">1 pack</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+  <section class="aisle" id="tins-jars">
+    <h2><span>Tins &amp; jars</span><span class="left" data-left>5 left</span></h2>
+    <ul class="items">
+      <li class="item" data-slug="chopped-tomatoes">
+        <label for="tick-chopped-tomatoes">
+          <input type="checkbox" class="tick" id="tick-chopped-tomatoes">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Chopped tomatoes</span><span class="src">Fri gnocchi bake</span></span>
+          <span class="qty">2</span>
+        </label>
+      </li>
+      <li class="item" data-slug="coconut-milk">
+        <label for="tick-coconut-milk">
+          <input type="checkbox" class="tick" id="tick-coconut-milk">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Coconut milk</span><span class="src">Sun coconut soup</span></span>
+          <span class="qty">2</span>
+        </label>
+      </li>
+      <li class="item" data-slug="red-curry-paste">
+        <label for="tick-red-curry-paste">
+          <input type="checkbox" class="tick" id="tick-red-curry-paste">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Red curry paste</span><span class="src">Sun coconut soup</span><span class="note">Buy one jar. Add to the pantry list after this week.</span></span>
+          <span class="qty">2 tbsp</span>
+        </label>
+      </li>
+      <li class="item" data-slug="sweetcorn">
+        <label for="tick-sweetcorn">
+          <input type="checkbox" class="tick" id="tick-sweetcorn">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Sweetcorn</span><span class="src">Sun coconut soup</span></span>
+          <span class="qty">1</span>
+        </label>
+      </li>
+      <li class="item" data-slug="white-miso-paste">
+        <label for="tick-white-miso-paste">
+          <input type="checkbox" class="tick" id="tick-white-miso-paste">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">White miso paste</span><span class="src">Mon miso cod</span><span class="note">Buy one tub. Add to the pantry list after this week.</span></span>
+          <span class="qty">2 tbsp</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+  <section class="aisle" id="drinks">
+    <h2><span>Drinks</span><span class="left" data-left>2 left</span></h2>
+    <ul class="items">
+      <li class="item" data-slug="orange-juice">
+        <label for="tick-orange-juice">
+          <input type="checkbox" class="tick" id="tick-orange-juice">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Orange juice</span><span class="src">staples</span></span>
+          <span class="qty">2 l</span>
+        </label>
+      </li>
+      <li class="item" data-slug="sparkling-water">
+        <label for="tick-sparkling-water">
+          <input type="checkbox" class="tick" id="tick-sparkling-water">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Sparkling water</span><span class="src">staples</span></span>
+          <span class="qty">6 l</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+  <section class="aisle" id="snacks">
+    <h2><span>Snacks</span><span class="left" data-left>5 left</span></h2>
+    <ul class="items">
+      <li class="item" data-slug="dark-chocolate">
+        <label for="tick-dark-chocolate">
+          <input type="checkbox" class="tick" id="tick-dark-chocolate">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Dark chocolate</span><span class="src">staples</span></span>
+          <span class="qty">2 packs</span>
+        </label>
+      </li>
+      <li class="item" data-slug="oat-biscuits">
+        <label for="tick-oat-biscuits">
+          <input type="checkbox" class="tick" id="tick-oat-biscuits">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Oat biscuits</span><span class="src">staples</span></span>
+          <span class="qty">2 packs</span>
+        </label>
+      </li>
+      <li class="item" data-slug="raisins-snack-boxes">
+        <label for="tick-raisins-snack-boxes">
+          <input type="checkbox" class="tick" id="tick-raisins-snack-boxes">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Raisins snack boxes</span><span class="src">staples</span></span>
+          <span class="qty">1 pack</span>
+        </label>
+      </li>
+      <li class="item" data-slug="rice-cakes">
+        <label for="tick-rice-cakes">
+          <input type="checkbox" class="tick" id="tick-rice-cakes">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Rice cakes</span><span class="src">staples</span></span>
+          <span class="qty">2 packs</span>
+        </label>
+      </li>
+      <li class="item" data-slug="salted-crisps">
+        <label for="tick-salted-crisps">
+          <input type="checkbox" class="tick" id="tick-salted-crisps">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Salted crisps</span><span class="src">staples</span></span>
+          <span class="qty">1 pack</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+  <section class="aisle" id="household">
+    <h2><span>Household</span><span class="left" data-left>5 left</span></h2>
+    <ul class="items">
+      <li class="item" data-slug="bin-bags">
+        <label for="tick-bin-bags">
+          <input type="checkbox" class="tick" id="tick-bin-bags">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Bin bags</span><span class="src">staples</span></span>
+          <span class="qty">1 pack</span>
+        </label>
+      </li>
+      <li class="item" data-slug="dishwasher-tablets">
+        <label for="tick-dishwasher-tablets">
+          <input type="checkbox" class="tick" id="tick-dishwasher-tablets">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Dishwasher tablets</span><span class="src">staples</span></span>
+          <span class="qty">1 pack</span>
+        </label>
+      </li>
+      <li class="item" data-slug="kitchen-roll">
+        <label for="tick-kitchen-roll">
+          <input type="checkbox" class="tick" id="tick-kitchen-roll">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Kitchen roll</span><span class="src">staples</span></span>
+          <span class="qty">1 pack</span>
+        </label>
+      </li>
+      <li class="item" data-slug="toilet-roll">
+        <label for="tick-toilet-roll">
+          <input type="checkbox" class="tick" id="tick-toilet-roll">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Toilet roll</span><span class="src">staples</span></span>
+          <span class="qty">1 pack</span>
+        </label>
+      </li>
+      <li class="item" data-slug="washing-up-liquid">
+        <label for="tick-washing-up-liquid">
+          <input type="checkbox" class="tick" id="tick-washing-up-liquid">
+          <span class="box" aria-hidden="true"></span>
+          <span class="text"><span class="name">Washing up liquid</span><span class="src">staples</span></span>
+          <span class="qty">1</span>
+        </label>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <button type="button" class="reset" id="reset">Clear all ticks</button>
+    <p>72 lines from this week&#39;s 7 dinners, the breakfasts and the staples list. Oil, spices, stock cubes and other pantry basics are left off.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var WEEK = '2026-09-28';
+  var KEY = 'ticks:' + WEEK;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  var rows = $$('.item');
+  var total = rows.length;
+  var checked = {};
+  var hideDone = false;
+  var db = null;
+  var queues = {};
+  var reconciled = false;
+
+  try { Object.assign(checked, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
+  try { hideDone = localStorage.getItem('hideDone:' + WEEK) === '1'; } catch (e) {}
+
+  function saveLocal() { try { localStorage.setItem(KEY, JSON.stringify(checked)); } catch (e) {} }
+
+  function render() {
+    var done = 0;
+    rows.forEach(function (row) {
+      var on = !!checked[row.getAttribute('data-slug')];
+      row.classList.toggle('done', on);
+      var input = $('input', row);
+      if (input.checked !== on) input.checked = on;
+      if (on) done++;
+    });
+    $('#doneCount').textContent = done;
+    $('#barFill').style.width = (total ? (done / total) * 100 : 0) + '%';
+    $('.bar').setAttribute('aria-valuenow', done);
+    $$('.aisle').forEach(function (sec) {
+      var left = $$('.item', sec).filter(function (r) { return !r.classList.contains('done'); }).length;
+      $('[data-left]', sec).textContent = left === 0 ? 'done' : left + ' left';
+      sec.classList.toggle('all-done', left === 0);
+    });
+    $('#hideDone').setAttribute('aria-pressed', String(hideDone));
+    document.documentElement.classList.toggle('hide-done', hideDone);
+  }
+
+  function setSync(mode) {
+    var el = $('#sync');
+    el.setAttribute('data-mode', mode);
+    el.textContent = mode === 'synced' ? 'Synced across your devices'
+      : mode === 'syncing' ? 'Syncing'
+      : 'Saved on this phone';
+  }
+
+  function writeRemote(slug, value) {
+    if (!db) return;
+    var ref = db.doc('weeks/' + WEEK + '/ticks/' + slug);
+    queues[slug] = (queues[slug] || Promise.resolve())
+      .then(function () { return ref.set({ checked: value, at: new Date().toISOString() }); })
+      .then(function () {}, function () { setSync('local'); });
+  }
+
+  function setTick(slug, value) {
+    checked[slug] = value;
+    saveLocal();
+    render();
+    writeRemote(slug, value);
+  }
+
+  rows.forEach(function (row) {
+    var slug = row.getAttribute('data-slug');
+    $('input', row).addEventListener('change', function (e) { setTick(slug, e.target.checked); });
+  });
+
+  $('#hideDone').addEventListener('click', function () {
+    hideDone = !hideDone;
+    try { localStorage.setItem('hideDone:' + WEEK, hideDone ? '1' : '0'); } catch (e) {}
+    render();
+  });
+
+  var armed = null;
+  var resetBtn = $('#reset');
+  function disarm() {
+    if (armed) clearTimeout(armed);
+    armed = null;
+    resetBtn.textContent = 'Clear all ticks';
+    resetBtn.classList.remove('armed');
+  }
+  resetBtn.addEventListener('click', function () {
+    if (!armed) {
+      resetBtn.textContent = 'Tap again to clear every tick';
+      resetBtn.classList.add('armed');
+      armed = setTimeout(disarm, 3500);
+      return;
+    }
+    disarm();
+    rows.forEach(function (row) {
+      var slug = row.getAttribute('data-slug');
+      if (checked[slug]) { checked[slug] = false; writeRemote(slug, false); }
+    });
+    saveLocal();
+    render();
+  });
+
+  // Keep the screen on while walking the shop. Optional: hidden where the browser refuses it.
+  var wakeBtn = $('#wake');
+  var lock = null;
+  var wantWake = false;
+  function requestWake() {
+    return navigator.wakeLock.request('screen').then(function (l) {
+      lock = l;
+      l.addEventListener('release', function () { lock = null; });
+    });
+  }
+  if (navigator.wakeLock && navigator.wakeLock.request) {
+    wakeBtn.hidden = false;
+    wakeBtn.addEventListener('click', function () {
+      if (wantWake) {
+        wantWake = false;
+        wakeBtn.setAttribute('aria-pressed', 'false');
+        if (lock) { lock.release().catch(function () {}); }
+        return;
+      }
+      requestWake().then(function () {
+        wantWake = true;
+        wakeBtn.setAttribute('aria-pressed', 'true');
+      }, function () { wakeBtn.hidden = true; });
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible' && wantWake && !lock) requestWake().catch(function () {});
+    });
+  }
+
+  render();
+
+  // Shared ticks: whoever has this page open sees the same list. Absent, the phone keeps its own copy.
+  function connect() {
+    if (!(window.claude && window.claude.use)) { setSync('local'); return; }
+    window.claude.use('db').then(function (ns) {
+      db = ns;
+      if (!db) { setSync('local'); return; }
+      setSync('syncing');
+      db.collection('weeks/' + WEEK + '/ticks').onSnapshot(function (snap) {
+        var seen = {};
+        snap.docs.forEach(function (d) {
+          seen[d.id] = true;
+          var body = d.data() || {};
+          checked[d.id] = !!body.checked;
+        });
+        if (!reconciled) {
+          reconciled = true;
+          Object.keys(checked).forEach(function (slug) {
+            if (checked[slug] && !seen[slug]) writeRemote(slug, true);
+          });
+        }
+        saveLocal();
+        render();
+        setSync(snap.metadata && snap.metadata.fromCache ? 'syncing' : 'synced');
+      }, function () { setSync('local'); });
+    }, function () { setSync('local'); });
+  }
+  connect();
+})();
+</script>
+</body>
+</html>

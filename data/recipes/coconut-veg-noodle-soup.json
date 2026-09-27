@@ -1,0 +1,29 @@
+{
+  "id": "coconut-veg-noodle-soup",
+  "title": "Coconut vegetable noodle soup",
+  "cuisine": "asian",
+  "activeMinutes": 10,
+  "totalMinutes": 20,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Ladle the toddlers' noodles and vegetables out before the curry paste goes in — theirs is plain coconut broth. Snip the noodles short and serve barely warm.",
+  "tags": ["store-cupboard", "meat-free", "end-of-week", "uses-frozen"],
+  "ingredients": [
+    { "item": "coconut milk", "qty": 2, "unit": "unit", "category": "tins-jars" },
+    { "item": "rice noodles", "qty": 250, "unit": "g", "category": "dry-goods" },
+    { "item": "frozen peas", "qty": 200, "unit": "g", "category": "frozen" },
+    { "item": "frozen spinach", "qty": 200, "unit": "g", "category": "frozen" },
+    { "item": "sweetcorn", "qty": 1, "unit": "unit", "category": "tins-jars" },
+    { "item": "red curry paste", "qty": 2, "unit": "tbsp", "category": "tins-jars" },
+    { "item": "limes", "qty": 2, "unit": "unit", "category": "produce", "keepsDays": 14 }
+  ],
+  "steps": [
+    "Nothing fresh needed — this is the end-of-week recipe that runs on the cupboard and freezer.",
+    "Simmer the coconut milk with 400ml water and a stock cube.",
+    "Add frozen peas, spinach and drained sweetcorn, plus grated carrot if any are left. 5 minutes.",
+    "Add the rice noodles, 4 minutes until soft.",
+    "Ladle out the toddlers' bowls now.",
+    "Stir curry paste into the remaining pan, squeeze in lime, serve hot."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

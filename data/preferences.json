@@ -1,0 +1,35 @@
+{
+  "household": {
+    "adults": 2,
+    "toddlers": 2,
+    "toddlerAges": [3, 2]
+  },
+  "exclusions": [
+    "pork",
+    "bacon",
+    "ham",
+    "gammon",
+    "chorizo",
+    "pancetta",
+    "lardons",
+    "prosciutto",
+    "salami",
+    "pork sausage"
+  ],
+  "cuisines": ["mediterranean", "asian", "european-comfort"],
+  "maxWeeknightMinutes": 30,
+  "weeknights": [1, 2, 3, 4, 5],
+  "noRepeatDays": 28,
+  "aisleOrder": [
+    "produce",
+    "bakery",
+    "dairy",
+    "meat-fish",
+    "frozen",
+    "dry-goods",
+    "tins-jars",
+    "drinks",
+    "snacks",
+    "household"
+  ]
+}

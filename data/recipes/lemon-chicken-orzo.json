@@ -1,0 +1,29 @@
+{
+  "id": "lemon-chicken-orzo",
+  "title": "Lemon chicken orzo traybake",
+  "cuisine": "mediterranean",
+  "activeMinutes": 10,
+  "totalMinutes": 30,
+  "serves": { "adults": 2, "toddlers": 2 },
+  "toddlerSplit": "Lift out the toddlers' chicken and orzo before the feta and chilli flakes go on — feta is very salty for under-3s. Shred their chicken off the bone.",
+  "tags": ["one-tray", "low-active", "kid-favourite"],
+  "ingredients": [
+    { "item": "chicken thighs", "qty": 600, "unit": "g", "category": "meat-fish", "keepsDays": 3 },
+    { "item": "orzo", "qty": 300, "unit": "g", "category": "dry-goods" },
+    { "item": "lemons", "qty": 2, "unit": "unit", "category": "produce", "keepsDays": 14 },
+    { "item": "cherry tomatoes", "qty": 300, "unit": "g", "category": "produce", "keepsDays": 6 },
+    { "item": "courgettes", "qty": 2, "unit": "unit", "category": "produce", "keepsDays": 7 },
+    { "item": "feta", "qty": 200, "unit": "g", "category": "dairy", "keepsDays": 14 },
+    { "item": "garlic", "qty": 1, "unit": "unit", "category": "produce", "keepsDays": 21 },
+    { "item": "chicken stock", "qty": 600, "unit": "ml", "category": "dry-goods" }
+  ],
+  "steps": [
+    "Oven to 200C. Toss chicken, halved tomatoes, sliced courgette and crushed garlic in oil, salt and oregano on a deep tray.",
+    "Roast 15 minutes.",
+    "Stir in the orzo and hot stock, squeeze over one lemon. Back in for 12 minutes.",
+    "Take out the toddlers' portions now, plain.",
+    "Crumble feta and chilli flakes over the rest, squeeze the second lemon, rest 2 minutes and serve."
+  ],
+  "lastCooked": null,
+  "rating": null
+}

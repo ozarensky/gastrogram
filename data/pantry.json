@@ -1,0 +1,20 @@
+[
+  { "name": "olive oil", "category": "dry-goods" },
+  { "name": "vegetable oil", "category": "dry-goods" },
+  { "name": "sea salt", "category": "dry-goods" },
+  { "name": "black pepper", "category": "dry-goods" },
+  { "name": "plain flour", "category": "dry-goods" },
+  { "name": "caster sugar", "category": "dry-goods" },
+  { "name": "honey", "category": "dry-goods" },
+  { "name": "soy sauce", "category": "tins-jars" },
+  { "name": "red wine vinegar", "category": "tins-jars" },
+  { "name": "dijon mustard", "category": "tins-jars" },
+  { "name": "tomato puree", "category": "tins-jars" },
+  { "name": "dried oregano", "category": "dry-goods" },
+  { "name": "smoked paprika", "category": "dry-goods" },
+  { "name": "ground cumin", "category": "dry-goods" },
+  { "name": "chilli flakes", "category": "dry-goods" },
+  { "name": "bay leaves", "category": "dry-goods" },
+  { "name": "stock cubes", "category": "dry-goods" },
+  { "name": "cornflour", "category": "dry-goods" }
+]
