@@ -14,7 +14,7 @@ data/
   shopping-lists/<monday>.json   the consolidated list for that week
 src/lib/               validator, consolidator, units, aisle grouping (test-first)
 scripts/               the week's pipeline, run with npm
-website/               static site deployed by the Cloudflare Worker (wrangler.jsonc)
+website/               static site deployed by Vercel (vercel.json)
 ```
 
 ## A week, start to finish
@@ -30,4 +30,4 @@ npm run shopping-list -- 2026-09-28
 npm run shop-page -- 2026-09-28
 ```
 
-Pushing `main` deploys `website/` through Cloudflare Workers Builds. The list is served at `/shop/`.
+Pushing `main` deploys `website/` on Vercel (see `vercel.json`). The list is served at `/shop/`, and the site root redirects there.

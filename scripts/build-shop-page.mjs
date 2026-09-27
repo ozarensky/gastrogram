@@ -2,7 +2,7 @@
 // Usage: npm run shop-page -- 2026-09-28
 //
 // Writes two files:
-//   website/shop/index.html        a complete document, served by the Cloudflare Worker (see wrangler.jsonc)
+//   website/shop/index.html        a complete document, served as a static file by Vercel (see vercel.json)
 //   dist/shop-page.artifact.html   the same page without the document shell, for publishing as a Claude artifact
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';

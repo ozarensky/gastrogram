@@ -8,6 +8,6 @@ dist/
 # local Claude Code settings
 .claude/settings.local.json
 
-# wrangler
-.wrangler
-.dev.vars*
+# vercel
+.vercel
+
