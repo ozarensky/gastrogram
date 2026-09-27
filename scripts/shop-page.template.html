@@ -1,9 +1,20 @@
 <title>The Weekly Shop</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<script>
+  // Apply the saved theme before the first paint. With no saved choice, follow the phone's own setting.
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('shop-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-shop-theme', t);
+  })();
+</script>
 <style>
-  /* Direction: a slate list on the trolley handle, chalk-white ink, marked off with a yellow highlighter.
-     Inverted on request: the dark palette is the default and the viewer's dark theme flips it to paper. */
+  /* Direction: a list clipped to the trolley handle, marked off with a yellow highlighter.
+     Two looks, chosen by the toggle in the header: slate with chalk-white ink, or paper with dark ink. */
   :root {
     color-scheme: dark;
     --paper: #161917;
@@ -17,14 +28,7 @@
     --display: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
     --body: 'Atkinson Hyperlegible', 'Segoe UI', Helvetica, Arial, sans-serif;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      color-scheme: light;
-      --paper: #F5F6F3; --paper-2: #E9ECE6; --ink: #171B18; --ink-2: #5B625D;
-      --rule: #D3D8D1; --mark: #F7C948; --done: #8E958F; --focus: #1D5FBF;
-    }
-  }
-  :root[data-theme="dark"] {
+  :root[data-shop-theme="light"] {
     color-scheme: light;
     --paper: #F5F6F3; --paper-2: #E9ECE6; --ink: #171B18; --ink-2: #5B625D;
     --rule: #D3D8D1; --mark: #F7C948; --done: #8E958F; --focus: #1D5FBF;
@@ -168,6 +172,7 @@
       </div>
       <div class="controls">
         <button type="button" class="chip" id="hideDone" aria-pressed="false">Hide ticked</button>
+        <button type="button" class="chip" id="theme" aria-label="Switch to the light theme">Light</button>
         <button type="button" class="chip" id="wake" aria-pressed="false" hidden>Keep screen on</button>
       </div>
     </div>
@@ -264,6 +269,21 @@
     hideDone = !hideDone;
     try { localStorage.setItem('hideDone:' + WEEK, hideDone ? '1' : '0'); } catch (e) {}
     render();
+  });
+
+  // Light or dark, remembered on this device. The script at the top of the page applied it before the first paint.
+  var themeBtn = $('#theme');
+  var theme = document.documentElement.getAttribute('data-shop-theme') === 'light' ? 'light' : 'dark';
+  function applyTheme() {
+    document.documentElement.setAttribute('data-shop-theme', theme);
+    themeBtn.textContent = theme === 'dark' ? 'Light' : 'Dark';
+    themeBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to the light theme' : 'Switch to the dark theme');
+  }
+  applyTheme();
+  themeBtn.addEventListener('click', function () {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('shop-theme', theme); } catch (e) {}
+    applyTheme();
   });
 
   var armed = null;
