@@ -1,0 +1,92 @@
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<script>
+  // Apply the saved theme before the first paint. With no saved choice, follow the phone's own setting.
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('shop-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-shop-theme', t);
+  })();
+</script>
+<style>
+  /* Direction: a list clipped to the trolley handle, marked off with a yellow highlighter.
+     Two looks, chosen by the toggle in the header: slate with chalk-white ink, or paper with dark ink.
+     Shared by the shopping list and every recipe page. */
+  :root {
+    color-scheme: dark;
+    --paper: #161917;
+    --paper-2: #1F2320;
+    --ink: #ECEEE8;
+    --ink-2: #9BA39C;
+    --rule: #2D322E;
+    --mark: #E6B92B;
+    --done: #6F776F;
+    --focus: #7FB0FF;
+    --display: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+    --body: 'Atkinson Hyperlegible', 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  :root[data-shop-theme="light"] {
+    color-scheme: light;
+    --paper: #F5F6F3; --paper-2: #E9ECE6; --ink: #171B18; --ink-2: #5B625D;
+    --rule: #D3D8D1; --mark: #F7C948; --done: #8E958F; --focus: #1D5FBF;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.35;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 560px; margin-inline: auto; padding-inline: 16px; padding-block: 0 40px; }
+
+  .eyebrow {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    font: 700 13px/1 var(--body);
+    padding: 10px 12px;
+    min-height: 36px;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .chip:focus-visible, .reset:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+  .section-title {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 0; padding: 6px 0;
+    font-family: var(--display); font-weight: 800; font-size: 24px;
+    text-transform: uppercase; letter-spacing: .05em;
+    border-bottom: 2px solid var(--ink);
+  }
+  .section-title .left { font-weight: 700; font-size: 14px; letter-spacing: .06em; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+  .toddler { margin: 0; padding: 8px 10px; border-left: 3px solid var(--mark); background: var(--paper-2); border-radius: 0 6px 6px 0; font-size: 15px; }
+  .toddler strong {
+    display: block; margin-bottom: 2px;
+    font-family: var(--display); font-weight: 700; font-size: 13px;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
