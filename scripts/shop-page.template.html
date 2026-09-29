@@ -75,6 +75,8 @@
   .count .of { font-size: 22px; font-weight: 700; color: var(--ink-2); }
   .controls { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
   .chip {
+    display: inline-flex;
+    align-items: center;
     font: 700 13px/1 var(--body);
     padding: 10px 12px;
     min-height: 36px;
@@ -84,6 +86,7 @@
     color: var(--ink);
     cursor: pointer;
     white-space: nowrap;
+    text-decoration: none;
   }
   .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
   .chip:focus-visible, .reset:focus-visible, .plan summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
@@ -106,6 +109,7 @@
   .plan .day { font-family: var(--display); font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: .04em; }
   .plan .pnote, .plan .also { display: block; font-size: 13px; color: var(--ink-2); }
   .plan .also { margin: 12px 0 2px; }
+  .plan a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
 
   /* Aisles */
   .aisle { margin-top: 24px; }
@@ -153,6 +157,51 @@
   .hide-done .item.done { display: none; }
   .hide-done .aisle.all-done { display: none; }
 
+  /* Recipes for the week, one fold per recipe, below the list so the shop comes first */
+  .recipes { margin-top: 36px; scroll-margin-top: 150px; }
+  .recipes h2 {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 0; padding: 6px 0;
+    font-family: var(--display); font-weight: 800; font-size: 24px;
+    text-transform: uppercase; letter-spacing: .05em;
+    border-bottom: 2px solid var(--ink);
+  }
+  .recipes h2 .left { font-weight: 700; font-size: 14px; letter-spacing: .06em; color: var(--ink-2); }
+  .recipes h3 {
+    margin: 22px 0 2px;
+    font-family: var(--display); font-weight: 700; font-size: 15px;
+    text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2);
+  }
+  .recipe { border-bottom: 1px solid var(--rule); scroll-margin-top: 150px; }
+  .recipe summary {
+    display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: baseline;
+    padding: 12px 0; cursor: pointer; list-style: none; -webkit-tap-highlight-color: transparent;
+  }
+  .recipe summary::-webkit-details-marker { display: none; }
+  .recipe summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .recipe .day {
+    min-width: 44px; max-width: 84px;
+    font-family: var(--display); font-weight: 800; font-size: 16px;
+    text-transform: uppercase; letter-spacing: .04em;
+  }
+  .recipe .rmain { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .recipe .rtitle { font-weight: 700; font-size: 17px; }
+  .recipe .meta { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .recipe[open] summary { border-bottom: 1px dashed var(--rule); }
+  .rbody { display: grid; gap: 14px; padding: 14px 0 18px; font-size: 15px; }
+  .toddler { margin: 0; padding: 8px 10px; border-left: 3px solid var(--mark); background: var(--paper-2); border-radius: 0 6px 6px 0; }
+  .toddler strong {
+    display: block; margin-bottom: 2px;
+    font-family: var(--display); font-weight: 700; font-size: 13px;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+  .ings { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+  .ings li { display: grid; grid-template-columns: 76px 1fr; gap: 10px; }
+  .iqty { font-variant-numeric: tabular-nums; color: var(--ink-2); white-space: nowrap; }
+  .staples-only { margin: 0; color: var(--ink-2); }
+  .steps { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+  .steps li { padding-left: 4px; }
+
   footer { margin-top: 36px; border-top: 2px solid var(--ink); padding-top: 16px; display: grid; gap: 14px; font-size: 14px; color: var(--ink-2); }
   footer p { margin: 0; }
   .reset {
@@ -173,6 +222,7 @@
       <div class="controls">
         <button type="button" class="chip" id="hideDone" aria-pressed="false">Hide ticked</button>
         <button type="button" class="chip" id="theme" aria-label="Switch to the light theme">Light</button>
+        <a class="chip" href="#recipes">Recipes</a>
         <button type="button" class="chip" id="wake" aria-pressed="false" hidden>Keep screen on</button>
       </div>
     </div>
@@ -189,6 +239,8 @@
   </details>
 
 {{SECTIONS}}
+
+{{RECIPES}}
 
   <footer>
     <button type="button" class="reset" id="reset">Clear all ticks</button>

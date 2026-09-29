@@ -110,15 +110,67 @@ ${rows}
 
 const dinners = plan.days
   .map((d) => {
-    const r = recipes[d.dinner.recipeId];
+    const id = d.dinner.recipeId;
+    const r = recipes[id];
     const note = d.dinner.notes ? `<span class="pnote">${esc(d.dinner.notes)}</span>` : '';
-    return `      <li><span class="day">${dayOf(d.date)}</span><span>${esc(r?.title ?? d.dinner.recipeId)}${note}</span></li>`;
+    const title = r ? `<a href="#recipe-${id}">${esc(r.title)}</a>` : esc(id);
+    return `      <li><span class="day">${dayOf(d.date)}</span><span>${title}${note}</span></li>`;
   })
   .join('\n');
 
 const uniq = (ids) => [...new Set(ids)].map((id) => recipes[id]?.title ?? id);
 const breakfasts = uniq(plan.days.map((d) => d.breakfast.recipeId)).join(', ');
 const lunches = uniq(plan.days.map((d) => d.lunch.recipeId)).join(', ');
+
+/** One fold-out recipe. `when` is the dinner's day, or the days a breakfast or lunch appears. */
+function recipeCard(id, when) {
+  const r = recipes[id];
+  if (!r) return '';
+  const ingredients = r.ingredients.length
+    ? `        <ul class="ings">
+${r.ingredients.map((i) => `          <li><span class="iqty">${esc(qtyText(i.qty, i.unit))}</span><span>${esc(i.item)}</span></li>`).join('\n')}
+        </ul>`
+    : `        <p class="staples-only">Everything for this is on the staples list.</p>`;
+  const steps = r.steps.map((s) => `          <li>${esc(s)}</li>`).join('\n');
+  const meta = r.activeMinutes === r.totalMinutes
+    ? `${r.totalMinutes} min`
+    : `${r.totalMinutes} min, ${r.activeMinutes} active`;
+  return `    <details class="recipe" id="recipe-${id}">
+      <summary>
+        <span class="day">${esc(when)}</span>
+        <span class="rmain"><span class="rtitle">${esc(r.title)}</span><span class="meta">${esc(meta)}</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>${esc(r.toddlerSplit)}</p>
+${ingredients}
+        <ol class="steps">
+${steps}
+        </ol>
+      </div>
+    </details>`;
+}
+
+/** Breakfasts and lunches repeat across the week: one card per recipe, labelled with its days. */
+function slotCards(slot) {
+  const days = new Map();
+  for (const d of plan.days) {
+    const id = d[slot].recipeId;
+    if (!days.has(id)) days.set(id, []);
+    days.get(id).push(dayOf(d.date));
+  }
+  return [...days].map(([id, ds]) => recipeCard(id, ds.join(' '))).join('\n');
+}
+
+const recipeCount = new Set(plan.days.flatMap((d) => [d.breakfast.recipeId, d.lunch.recipeId, d.dinner.recipeId])).size;
+const recipesHtml = `  <section class="recipes" id="recipes">
+    <h2><span>Recipes</span><span class="left">${recipeCount} this week</span></h2>
+    <h3>Dinners</h3>
+${plan.days.map((d) => recipeCard(d.dinner.recipeId, dayOf(d.date))).join('\n')}
+    <h3>Breakfasts</h3>
+${slotCards('breakfast')}
+    <h3>Lunches</h3>
+${slotCards('lunch')}
+  </section>`;
 
 const total = list.items.length;
 const summary = `${total} lines from this week's ${plan.days.length} dinners, the breakfasts and the staples list. Oil, spices, stock cubes and other pantry basics are left off.`;
@@ -131,6 +183,7 @@ const page = readFileSync(join(here, 'shop-page.template.html'), 'utf8')
   .replaceAll('{{BREAKFASTS}}', esc(breakfasts))
   .replaceAll('{{LUNCHES}}', esc(lunches))
   .replaceAll('{{SECTIONS}}', sections)
+  .replaceAll('{{RECIPES}}', recipesHtml)
   .replaceAll('{{SUMMARY}}', esc(summary));
 
 // The artifact variant is the bare page: claude.ai wraps it in its own document shell.

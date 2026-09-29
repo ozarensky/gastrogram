@@ -82,6 +82,8 @@
   .count .of { font-size: 22px; font-weight: 700; color: var(--ink-2); }
   .controls { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
   .chip {
+    display: inline-flex;
+    align-items: center;
     font: 700 13px/1 var(--body);
     padding: 10px 12px;
     min-height: 36px;
@@ -91,6 +93,7 @@
     color: var(--ink);
     cursor: pointer;
     white-space: nowrap;
+    text-decoration: none;
   }
   .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
   .chip:focus-visible, .reset:focus-visible, .plan summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
@@ -113,6 +116,7 @@
   .plan .day { font-family: var(--display); font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: .04em; }
   .plan .pnote, .plan .also { display: block; font-size: 13px; color: var(--ink-2); }
   .plan .also { margin: 12px 0 2px; }
+  .plan a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
 
   /* Aisles */
   .aisle { margin-top: 24px; }
@@ -160,6 +164,51 @@
   .hide-done .item.done { display: none; }
   .hide-done .aisle.all-done { display: none; }
 
+  /* Recipes for the week, one fold per recipe, below the list so the shop comes first */
+  .recipes { margin-top: 36px; scroll-margin-top: 150px; }
+  .recipes h2 {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 0; padding: 6px 0;
+    font-family: var(--display); font-weight: 800; font-size: 24px;
+    text-transform: uppercase; letter-spacing: .05em;
+    border-bottom: 2px solid var(--ink);
+  }
+  .recipes h2 .left { font-weight: 700; font-size: 14px; letter-spacing: .06em; color: var(--ink-2); }
+  .recipes h3 {
+    margin: 22px 0 2px;
+    font-family: var(--display); font-weight: 700; font-size: 15px;
+    text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2);
+  }
+  .recipe { border-bottom: 1px solid var(--rule); scroll-margin-top: 150px; }
+  .recipe summary {
+    display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: baseline;
+    padding: 12px 0; cursor: pointer; list-style: none; -webkit-tap-highlight-color: transparent;
+  }
+  .recipe summary::-webkit-details-marker { display: none; }
+  .recipe summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .recipe .day {
+    min-width: 44px; max-width: 84px;
+    font-family: var(--display); font-weight: 800; font-size: 16px;
+    text-transform: uppercase; letter-spacing: .04em;
+  }
+  .recipe .rmain { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .recipe .rtitle { font-weight: 700; font-size: 17px; }
+  .recipe .meta { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .recipe[open] summary { border-bottom: 1px dashed var(--rule); }
+  .rbody { display: grid; gap: 14px; padding: 14px 0 18px; font-size: 15px; }
+  .toddler { margin: 0; padding: 8px 10px; border-left: 3px solid var(--mark); background: var(--paper-2); border-radius: 0 6px 6px 0; }
+  .toddler strong {
+    display: block; margin-bottom: 2px;
+    font-family: var(--display); font-weight: 700; font-size: 13px;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+  .ings { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+  .ings li { display: grid; grid-template-columns: 76px 1fr; gap: 10px; }
+  .iqty { font-variant-numeric: tabular-nums; color: var(--ink-2); white-space: nowrap; }
+  .staples-only { margin: 0; color: var(--ink-2); }
+  .steps { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+  .steps li { padding-left: 4px; }
+
   footer { margin-top: 36px; border-top: 2px solid var(--ink); padding-top: 16px; display: grid; gap: 14px; font-size: 14px; color: var(--ink-2); }
   footer p { margin: 0; }
   .reset {
@@ -185,6 +234,7 @@
       <div class="controls">
         <button type="button" class="chip" id="hideDone" aria-pressed="false">Hide ticked</button>
         <button type="button" class="chip" id="theme" aria-label="Switch to the light theme">Light</button>
+        <a class="chip" href="#recipes">Recipes</a>
         <button type="button" class="chip" id="wake" aria-pressed="false" hidden>Keep screen on</button>
       </div>
     </div>
@@ -195,13 +245,13 @@
   <details class="plan" id="plan">
     <summary>This week's dinners</summary>
     <ol>
-      <li><span class="day">Mon</span><span>Miso cod with greens and rice<span class="pnote">Cod first — it only keeps two days.</span></span></li>
-      <li><span class="day">Tue</span><span>Lemon chicken orzo traybake</span></li>
-      <li><span class="day">Wed</span><span>Quick beef stroganoff with rice</span></li>
-      <li><span class="day">Thu</span><span>Chicken and vegetable noodle stir-fry<span class="pnote">Uses the second half of the tenderstem, spring onions and ginger from Monday.</span></span></li>
-      <li><span class="day">Fri</span><span>Gnocchi, tomato and mozzarella bake<span class="pnote">Last day for the basil.</span></span></li>
-      <li><span class="day">Sat</span><span>Chicken sausage and root vegetable traybake<span class="pnote">45 minutes, so weekend only.</span></span></li>
-      <li><span class="day">Sun</span><span>Coconut vegetable noodle soup<span class="pnote">Cupboard and freezer only — nothing fresh left to go off.</span></span></li>
+      <li><span class="day">Mon</span><span><a href="#recipe-miso-cod-greens">Miso cod with greens and rice</a><span class="pnote">Cod first — it only keeps two days.</span></span></li>
+      <li><span class="day">Tue</span><span><a href="#recipe-lemon-chicken-orzo">Lemon chicken orzo traybake</a></span></li>
+      <li><span class="day">Wed</span><span><a href="#recipe-quick-beef-stroganoff">Quick beef stroganoff with rice</a></span></li>
+      <li><span class="day">Thu</span><span><a href="#recipe-chicken-noodle-stir-fry">Chicken and vegetable noodle stir-fry</a><span class="pnote">Uses the second half of the tenderstem, spring onions and ginger from Monday.</span></span></li>
+      <li><span class="day">Fri</span><span><a href="#recipe-gnocchi-tomato-mozzarella-bake">Gnocchi, tomato and mozzarella bake</a><span class="pnote">Last day for the basil.</span></span></li>
+      <li><span class="day">Sat</span><span><a href="#recipe-chicken-sausage-root-traybake">Chicken sausage and root vegetable traybake</a><span class="pnote">45 minutes, so weekend only.</span></span></li>
+      <li><span class="day">Sun</span><span><a href="#recipe-coconut-veg-noodle-soup">Coconut vegetable noodle soup</a><span class="pnote">Cupboard and freezer only — nothing fresh left to go off.</span></span></li>
     </ol>
     <span class="also">Breakfasts: Porridge with berries, Yoghurt, granola and fruit, Scrambled eggs on toast. Lunches: Cheese and cucumber sandwiches, Cheddar wraps with carrot and cucumber sticks.</span>
   </details>
@@ -831,6 +881,267 @@
         </label>
       </li>
     </ul>
+  </section>
+
+  <section class="recipes" id="recipes">
+    <h2><span>Recipes</span><span class="left">12 this week</span></h2>
+    <h3>Dinners</h3>
+    <details class="recipe" id="recipe-miso-cod-greens">
+      <summary>
+        <span class="day">Mon</span>
+        <span class="rmain"><span class="rtitle">Miso cod with greens and rice</span><span class="meta">20 min, 12 active</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Flake the toddlers&#39; cod over plain rice before the miso glaze goes on — miso is very salty for under-3s. Give them broccoli tips steamed soft, cut small.</p>
+        <ul class="ings">
+          <li><span class="iqty">500 g</span><span>cod fillets</span></li>
+          <li><span class="iqty">2 tbsp</span><span>white miso paste</span></li>
+          <li><span class="iqty">300 g</span><span>jasmine rice</span></li>
+          <li><span class="iqty">300 g</span><span>tenderstem broccoli</span></li>
+          <li><span class="iqty">1 bunch</span><span>spring onions</span></li>
+          <li><span class="iqty">30 g</span><span>fresh ginger</span></li>
+          <li><span class="iqty">1 tbsp</span><span>sesame oil</span></li>
+        </ul>
+        <ol class="steps">
+          <li>Rice on first: rinse, then simmer covered for 12 minutes and leave it alone.</li>
+          <li>Heat the oven grill. Mix the miso, grated ginger and sesame oil into a loose paste.</li>
+          <li>Sit the cod on a lined tray. Set aside the toddlers&#39; portions unglazed, then brush the rest with miso.</li>
+          <li>Grill 8 minutes until the fish flakes and the glaze is bubbling.</li>
+          <li>Steam or microwave the broccoli 4 minutes while the fish cooks.</li>
+          <li>Serve over rice, scattered with sliced spring onions.</li>
+        </ol>
+      </div>
+    </details>
+    <details class="recipe" id="recipe-lemon-chicken-orzo">
+      <summary>
+        <span class="day">Tue</span>
+        <span class="rmain"><span class="rtitle">Lemon chicken orzo traybake</span><span class="meta">30 min, 10 active</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Lift out the toddlers&#39; chicken and orzo before the feta and chilli flakes go on — feta is very salty for under-3s. Shred their chicken off the bone.</p>
+        <ul class="ings">
+          <li><span class="iqty">600 g</span><span>chicken thighs</span></li>
+          <li><span class="iqty">300 g</span><span>orzo</span></li>
+          <li><span class="iqty">2</span><span>lemons</span></li>
+          <li><span class="iqty">300 g</span><span>cherry tomatoes</span></li>
+          <li><span class="iqty">2</span><span>courgettes</span></li>
+          <li><span class="iqty">200 g</span><span>feta</span></li>
+          <li><span class="iqty">1</span><span>garlic</span></li>
+          <li><span class="iqty">600 ml</span><span>chicken stock</span></li>
+        </ul>
+        <ol class="steps">
+          <li>Oven to 200C. Toss chicken, halved tomatoes, sliced courgette and crushed garlic in oil, salt and oregano on a deep tray.</li>
+          <li>Roast 15 minutes.</li>
+          <li>Stir in the orzo and hot stock, squeeze over one lemon. Back in for 12 minutes.</li>
+          <li>Take out the toddlers&#39; portions now, plain.</li>
+          <li>Crumble feta and chilli flakes over the rest, squeeze the second lemon, rest 2 minutes and serve.</li>
+        </ol>
+      </div>
+    </details>
+    <details class="recipe" id="recipe-quick-beef-stroganoff">
+      <summary>
+        <span class="day">Wed</span>
+        <span class="rmain"><span class="rtitle">Quick beef stroganoff with rice</span><span class="meta">25 min, 15 active</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Serve the toddlers straight after the crème fraîche goes in, before the mustard and black pepper. Chop their beef strips small — long strips are hard for a 2-year-old.</p>
+        <ul class="ings">
+          <li><span class="iqty">500 g</span><span>beef strips</span></li>
+          <li><span class="iqty">300 g</span><span>chestnut mushrooms</span></li>
+          <li><span class="iqty">300 ml</span><span>creme fraiche</span></li>
+          <li><span class="iqty">300 g</span><span>basmati rice</span></li>
+          <li><span class="iqty">2</span><span>onions</span></li>
+          <li><span class="iqty">200 ml</span><span>beef stock</span></li>
+          <li><span class="iqty">1 bunch</span><span>flat leaf parsley</span></li>
+        </ul>
+        <ol class="steps">
+          <li>Rice on to simmer, covered, 12 minutes.</li>
+          <li>Fry sliced onion 4 minutes, add mushrooms, cook hard 4 minutes until browned.</li>
+          <li>Push aside, sear the beef strips 2 minutes — no longer or they toughen.</li>
+          <li>Add stock and smoked paprika, bubble 2 minutes, stir in crème fraîche.</li>
+          <li>Plate the toddlers now.</li>
+          <li>Stir mustard and plenty of pepper into the pan, scatter parsley, serve over rice.</li>
+        </ol>
+      </div>
+    </details>
+    <details class="recipe" id="recipe-chicken-noodle-stir-fry">
+      <summary>
+        <span class="day">Thu</span>
+        <span class="rmain"><span class="rtitle">Chicken and vegetable noodle stir-fry</span><span class="meta">20 min, 15 active</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Take the toddlers&#39; noodles and chicken out before the soy sauce reduces — theirs get a spoon of the cooking water and a drop of sesame oil. Snip their noodles short.</p>
+        <ul class="ings">
+          <li><span class="iqty">500 g</span><span>chicken breast</span></li>
+          <li><span class="iqty">300 g</span><span>egg noodles</span></li>
+          <li><span class="iqty">2</span><span>red peppers</span></li>
+          <li><span class="iqty">200 g</span><span>tenderstem broccoli</span></li>
+          <li><span class="iqty">1 bunch</span><span>spring onions</span></li>
+          <li><span class="iqty">20 g</span><span>fresh ginger</span></li>
+          <li><span class="iqty">1 tbsp</span><span>sesame oil</span></li>
+        </ul>
+        <ol class="steps">
+          <li>Boil the noodles, drain, toss in a drop of oil so they do not weld together.</li>
+          <li>Very hot wok. Sliced chicken, 4 minutes, until coloured on all sides.</li>
+          <li>Add sliced pepper, broccoli and grated ginger, 3 minutes — keep it moving.</li>
+          <li>Add the noodles, toss to combine, then lift out the toddlers&#39; portions.</li>
+          <li>Splash soy and honey into the wok, toss 1 minute until glossy, top with spring onions.</li>
+        </ol>
+      </div>
+    </details>
+    <details class="recipe" id="recipe-gnocchi-tomato-mozzarella-bake">
+      <summary>
+        <span class="day">Fri</span>
+        <span class="rmain"><span class="rtitle">Gnocchi, tomato and mozzarella bake</span><span class="meta">25 min, 8 active</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Theirs comes from the middle of the dish where it is cooler and milder — leave the chilli flakes off that half entirely. Halve the gnocchi for the 2-year-old.</p>
+        <ul class="ings">
+          <li><span class="iqty">800 g</span><span>fresh gnocchi</span></li>
+          <li><span class="iqty">2</span><span>chopped tomatoes</span></li>
+          <li><span class="iqty">250 g</span><span>mozzarella</span></li>
+          <li><span class="iqty">1 bunch</span><span>fresh basil</span></li>
+          <li><span class="iqty">1</span><span>red onion</span></li>
+          <li><span class="iqty">1</span><span>garlic</span></li>
+          <li><span class="iqty">100 g</span><span>parmesan</span></li>
+        </ul>
+        <ol class="steps">
+          <li>Oven to 220C.</li>
+          <li>Soften sliced red onion and garlic 4 minutes, add both tins of tomatoes, oregano and a pinch of sugar. Bubble 5 minutes.</li>
+          <li>Stir the raw gnocchi straight into the sauce — no need to boil it first.</li>
+          <li>Tip into a baking dish. Tear mozzarella over, grate parmesan on top. Chilli flakes on one half only.</li>
+          <li>Bake 15 minutes until blistered. Basil over, stand 3 minutes before serving — it comes out molten.</li>
+        </ol>
+      </div>
+    </details>
+    <details class="recipe" id="recipe-chicken-sausage-root-traybake">
+      <summary>
+        <span class="day">Sat</span>
+        <span class="rmain"><span class="rtitle">Chicken sausage and root vegetable traybake</span><span class="meta">45 min, 10 active</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Cut the toddlers&#39; sausages lengthways into strips — never into coins, which are a choking risk at this age. Skip the mustard glaze on their half.</p>
+        <ul class="ings">
+          <li><span class="iqty">8</span><span>chicken sausages</span></li>
+          <li><span class="iqty">1 kg</span><span>new potatoes</span></li>
+          <li><span class="iqty">500 g</span><span>parsnips</span></li>
+          <li><span class="iqty">2</span><span>red onion</span></li>
+          <li><span class="iqty">1 bunch</span><span>fresh rosemary</span></li>
+        </ul>
+        <ol class="steps">
+          <li>Oven to 200C. Halve the potatoes, cut parsnips into batons, quarter the onions.</li>
+          <li>Toss everything except the sausages with oil, rosemary and salt. Roast 20 minutes.</li>
+          <li>Add the sausages, roast a further 20 minutes, turning once.</li>
+          <li>Set aside the toddlers&#39; share and slice their sausages lengthways.</li>
+          <li>Whisk mustard with a splash of the pan juices, drizzle over the adult half.</li>
+        </ol>
+      </div>
+    </details>
+    <details class="recipe" id="recipe-coconut-veg-noodle-soup">
+      <summary>
+        <span class="day">Sun</span>
+        <span class="rmain"><span class="rtitle">Coconut vegetable noodle soup</span><span class="meta">20 min, 10 active</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Ladle the toddlers&#39; noodles and vegetables out before the curry paste goes in — theirs is plain coconut broth. Snip the noodles short and serve barely warm.</p>
+        <ul class="ings">
+          <li><span class="iqty">2</span><span>coconut milk</span></li>
+          <li><span class="iqty">250 g</span><span>rice noodles</span></li>
+          <li><span class="iqty">200 g</span><span>frozen peas</span></li>
+          <li><span class="iqty">200 g</span><span>frozen spinach</span></li>
+          <li><span class="iqty">1</span><span>sweetcorn</span></li>
+          <li><span class="iqty">2 tbsp</span><span>red curry paste</span></li>
+          <li><span class="iqty">2</span><span>limes</span></li>
+        </ul>
+        <ol class="steps">
+          <li>Nothing fresh needed — this is the end-of-week recipe that runs on the cupboard and freezer.</li>
+          <li>Simmer the coconut milk with 400ml water and a stock cube.</li>
+          <li>Add frozen peas, spinach and drained sweetcorn, plus grated carrot if any are left. 5 minutes.</li>
+          <li>Add the rice noodles, 4 minutes until soft.</li>
+          <li>Ladle out the toddlers&#39; bowls now.</li>
+          <li>Stir curry paste into the remaining pan, squeeze in lime, serve hot.</li>
+        </ol>
+      </div>
+    </details>
+    <h3>Breakfasts</h3>
+    <details class="recipe" id="recipe-porridge-berries">
+      <summary>
+        <span class="day">Mon Thu Sun</span>
+        <span class="rmain"><span class="rtitle">Porridge with berries</span><span class="meta">8 min, 5 active</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Make theirs looser and let it stand — porridge holds heat and burns small mouths. Honey only for the 3-year-old.</p>
+        <p class="staples-only">Everything for this is on the staples list.</p>
+        <ol class="steps">
+          <li>Oats and milk in the pan, 1 part oats to 3 parts milk. Simmer 5 minutes, stirring.</li>
+          <li>Toddlers&#39; bowls first, loosened with a splash of cold milk so they can eat straight away.</li>
+          <li>Berries and honey on top.</li>
+        </ol>
+      </div>
+    </details>
+    <details class="recipe" id="recipe-yoghurt-granola-fruit">
+      <summary>
+        <span class="day">Tue Fri</span>
+        <span class="rmain"><span class="rtitle">Yoghurt, granola and fruit</span><span class="meta">3 min</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Granola clusters are a choking risk at 2 — crush theirs between your fingers, or give fromage frais with soft fruit instead.</p>
+        <ul class="ings">
+          <li><span class="iqty">250 g</span><span>granola</span></li>
+        </ul>
+        <ol class="steps">
+          <li>Yoghurt into bowls.</li>
+          <li>Crush the granola for the toddlers, whole for the adults.</li>
+          <li>Sliced banana and blueberries over the top.</li>
+        </ol>
+      </div>
+    </details>
+    <details class="recipe" id="recipe-scrambled-eggs-toast">
+      <summary>
+        <span class="day">Wed Sat</span>
+        <span class="rmain"><span class="rtitle">Scrambled eggs on toast</span><span class="meta">10 min, 8 active</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Cut their toast into fingers, not squares, and salt only the adult eggs.</p>
+        <p class="staples-only">Everything for this is on the staples list.</p>
+        <ol class="steps">
+          <li>Beat the eggs with a splash of milk and a knob of butter.</li>
+          <li>Low heat, stir constantly, pull off while still slightly wet — they keep cooking.</li>
+          <li>Toast, butter, serve. Salt and pepper the adult plates only.</li>
+        </ol>
+      </div>
+    </details>
+    <h3>Lunches</h3>
+    <details class="recipe" id="recipe-cheese-and-cucumber-sandwiches">
+      <summary>
+        <span class="day">Mon Wed Fri Sun</span>
+        <span class="rmain"><span class="rtitle">Cheese and cucumber sandwiches</span><span class="meta">5 min</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Cut theirs into fingers, crusts off for the 2-year-old, and slice the cucumber thin — thick rounds are a choking risk.</p>
+        <p class="staples-only">Everything for this is on the staples list.</p>
+        <ol class="steps">
+          <li>Butter the wholemeal bread.</li>
+          <li>Slice cheddar and cucumber thin, layer, close.</li>
+          <li>Fingers for the toddlers, halves for the adults, cherry tomatoes on the side — quartered for the little ones.</li>
+        </ol>
+      </div>
+    </details>
+    <details class="recipe" id="recipe-cheddar-veg-wraps">
+      <summary>
+        <span class="day">Tue Thu Sat</span>
+        <span class="rmain"><span class="rtitle">Cheddar wraps with carrot and cucumber sticks</span><span class="meta">7 min, 5 active</span></span>
+      </summary>
+      <div class="rbody">
+        <p class="toddler"><strong>Toddlers</strong>Roll theirs tight and slice into pinwheels. Steam the 2-year-old&#39;s carrot sticks for 2 minutes — raw carrot is a choking risk at that age.</p>
+        <p class="staples-only">Everything for this is on the staples list.</p>
+        <ol class="steps">
+          <li>Grate cheddar over the wraps with a spoon of yoghurt to bind.</li>
+          <li>Roll, slice into pinwheels for the toddlers, halve for the adults.</li>
+          <li>Carrot and cucumber sticks and halved cherry tomatoes alongside.</li>
+        </ol>
+      </div>
+    </details>
   </section>
 
   <footer>
